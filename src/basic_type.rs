@@ -1,8 +1,5 @@
-fn main() {
-    println!("Hello, world!");
-}
 #[cfg(test)]
-mod test {
+mod basic_type_test {
     use std::ascii::AsciiExt;
 
 
