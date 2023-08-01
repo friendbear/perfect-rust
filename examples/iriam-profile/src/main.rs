@@ -15,7 +15,7 @@ fn main() {
                 + &s.x_name.unwrap_or_default()
         )
     };
-    let mut st = vec![
+    let st = vec![
         S::new(Some("eL(神様)".to_owned()), None, None),
         S::new(None, Some("🥢💙🖤".to_owned()), None),
         S::new(None, Some("☁️🎀".to_owned()), None),
