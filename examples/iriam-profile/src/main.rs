@@ -15,12 +15,13 @@ fn main() {
                 + &s.x_name.unwrap_or_default()
         )
     };
-    let mut st = Vec::<S>::new();
-    st.push(S::new(Some("eL(神様)".to_owned()), None, None));
-    st.push(S::new(None, Some("🥢💙🖤".to_owned()), None));
-    st.push(S::new(None, Some("☁️🎀".to_owned()), None));
-    st.push(S::new(None, Some("📘📗🌼".to_owned()), None));
-    st.push(S::new(None, Some("🐈‍⬛💜.*･".to_owned()), None));
+    let mut st = vec![
+        S::new(Some("eL(神様)".to_owned()), None, None),
+        S::new(None, Some("🥢💙🖤".to_owned()), None),
+        S::new(None, Some("☁️🎀".to_owned()), None),
+        S::new(None, Some("📘📗🌼".to_owned()), None),
+        S::new(None, Some("🐈‍⬛💜.*･".to_owned()), None),
+    ];
     st.into_iter().for_each(|s| print(s));
 }
 impl LiveStreamer {
