@@ -3,7 +3,6 @@ mod data_type {
 
     #[test]
     fn methods_1() {
-
         let x: i64 = -10_i64;
         assert_eq!(10, x.abs());
         assert_eq!(-1, x.signum());
@@ -13,7 +12,7 @@ mod data_type {
         assert_eq!(x, x.clone());
         assert_eq!(String::from("-10"), x.to_string());
     }
-    
+
     #[test]
     fn floating_type() {
         let x: f64 = 10.5_f64;
@@ -33,22 +32,20 @@ mod data_type {
         assert_eq!(x.to_ascii_lowercase(), 'x');
         assert_eq!(x.to_ascii_uppercase(), 'X');
     }
-    
+
     #[test]
     fn array_declare() {
         let array_a = [1, 2, 3];
         let array_b: [i32; 3] = [10, 20, 30];
         let array_c = [0; 3];
-        
+
         assert!(array_a.eq(&[1, 2, 3]));
         assert!(array_b.eq(&[10, 20, 30]));
         assert!(array_c.eq(&[0, 0, 0]));
-
-
     }
     #[test]
     fn array_method() {
-        let mut array_a: [i32; 5] = [2, 3, 5,  4, 1];
+        let mut array_a: [i32; 5] = [2, 3, 5, 4, 1];
 
         assert!(!array_a.is_empty());
         assert!(array_a.contains(&5));
@@ -57,7 +54,7 @@ mod data_type {
 
         array_a.sort();
         assert_eq!(array_a, [1, 2, 3, 4, 5]);
-        
+
         array_a.reverse();
         assert_eq!(array_a, [5, 4, 3, 2, 1]);
     }

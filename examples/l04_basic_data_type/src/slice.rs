@@ -1,8 +1,6 @@
-
 #[cfg(test)]
 mod slice {
     use std::ops::Range;
-
 
     #[test]
     fn methods_1() {
@@ -18,7 +16,7 @@ mod slice {
     #[test]
     fn methods_2() {
         let vec = vec!["abc", "def", "hij", "rst", "uvw", "xyz"];
-        let range = Range{start: 0, end: 6};
+        let range = Range { start: 0, end: 6 };
         let slice = &vec[range];
         for chunk in slice.chunks(3) {
             assert!(chunk.len() == 3)
