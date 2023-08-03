@@ -9,5 +9,8 @@ alias = "build_release"
 [tasks.examples_run]
 alias = "run"
 
+[tasks.examples_test]
+alias = "test"
+
 [tasks.examples_run_release]
 alias = "run_release"

@@ -3,5 +3,25 @@
 version = 3
 
 [[package]]
+name = "iriam-profile"
+version = "0.1.0"
+
+[[package]]
+name = "l02_operator"
+version = "0.1.0"
+
+[[package]]
+name = "l03_variable"
+version = "0.1.0"
+
+[[package]]
+name = "l04_basic_data_type"
+version = "0.1.0"
+
+[[package]]
+name = "l05_control_formula"
+version = "0.1.0"
+
+[[package]]
 name = "perfect-rust"
 version = "0.1.0"

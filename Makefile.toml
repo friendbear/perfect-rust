@@ -17,6 +17,12 @@ command = "cargo"
 args = ["make", "--cwd", "${EXAMPLES_PATH}/${@}", "examples_build"]
 dependencies = ["build"]
 
+[tasks.test_example]
+command = "cargo"
+args = ["make", "--cwd", "${EXAMPLES_PATH}/${@}", "examples_test"]
+dependencies = ["build"]
+
+
 [tasks.build_example_release]
 command = "cargo"
 args = ["make", "--cwd", "${EXAMPLES_PATH}/${@}", "examples_build_release"]
@@ -26,7 +32,91 @@ dependencies = ["build_release"]
 command = "cargo"
 args = ["run"]
 
+[tasks.test]
+command = "cargo"
+args = ["test"]
+
+
 [tasks.run_release]
 extend = "run"
 args = ["run", "--release"]
 dependencies = ["build"]
+
+[tasks.run_example]
+command = "cargo"
+args = ["make", "--cwd", "${EXAMPLES_PATH}/${@}", "examples_run"]
+dependencies = ["build_release"]
+
+[tasks.run_example_release]
+command = "cargo"
+args = ["make", "--cwd", "${EXAMPLES_PATH}/${@}", "examples_run_release"]
+
+[tasks.1]
+alias = "test_1"
+
+[tasks.run_1]
+command = "cargo"
+args = ["make", "run_example_release", "l02_operator"]
+
+[tasks.test_1]
+command = "cargo"
+args = ["make", "test_example", "l02_operator"]
+
+[tasks.build_1]
+command = "cargo"
+args = ["make", "build_example_release", "l02_operator"]
+
+[tasks.dev_run_1]
+command = "cargo"
+args = ["make", "run_example", "l02_operator"]
+
+[tasks.dev_build_1]
+command = "cargo"
+args = ["make", "build_example", "l02_operator"]
+
+[tasks.2]
+alias = "run_2"
+
+[tasks.run_2]
+command = "cargo"
+args = ["make", "run_example_release", "l03_variable"]
+
+[tasks.test_2]
+command = "cargo"
+args = ["make", "test_example", "l03_variable"]
+
+[tasks.build_2]
+command = "cargo"
+args = ["make", "build_example_release", "l03_variable"]
+
+[tasks.dev_run_2]
+command = "cargo"
+args = ["make", "run_example", "l03_variable"]
+
+[tasks.dev_build_2]
+command = "cargo"
+args = ["make", "build_example", "l03_variable"]
+
+
+[tasks.4]
+alias = "test_4"
+
+[tasks.run_4]
+command = "cargo"
+args = ["make", "run_example_release", "l05_control_formula"]
+
+[tasks.test_4]
+command = "cargo"
+args = ["make", "test_example", "l05_control_formula"]
+
+[tasks.build_4]
+command = "cargo"
+args = ["make", "build_example_release", "l05_control_formula"]
+
+[tasks.dev_run_4]
+command = "cargo"
+args = ["make", "run_example", "l05_control_formula"]
+
+[tasks.dev_build_4]
+command = "cargo"
+args = ["make", "build_example", "l05_control_formula"]
