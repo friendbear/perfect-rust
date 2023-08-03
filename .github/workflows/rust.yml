@@ -20,3 +20,28 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
+      
+  examples:
+    name: Examples
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Install toolchain
+        run: rustup install stable
+
+      - name: Add problem matchers
+        run: echo "::add-matcher::.github/matchers/rust.json"
+
+      - name: Cache
+        uses: Swatinem/rust-cache@v1
+
+      - name: 'Check example 1'
+        run: cargo check -p l02_operator
+      - name: 'Check example 2'
+        run: cargo check -p l03_variable
+      - name: 'Check example 3'
+        run: cargo check -p l05_control_formula
+
