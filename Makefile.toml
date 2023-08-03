@@ -1,0 +1,32 @@
+[config]
+default_to_workspace = false
+
+[env]
+EXAMPLES_PATH = { value = "./examples", condition = { env_not_set = ["EXAMPLES_PATH"] } }
+
+[tasks.build]
+command = "cargo"
+args = ["build"]
+
+[tasks.build_release]
+extend = "build"
+args = ["build", "--release"]
+
+[tasks.build_example]
+command = "cargo"
+args = ["make", "--cwd", "${EXAMPLES_PATH}/${@}", "examples_build"]
+dependencies = ["build"]
+
+[tasks.build_example_release]
+command = "cargo"
+args = ["make", "--cwd", "${EXAMPLES_PATH}/${@}", "examples_build_release"]
+dependencies = ["build_release"]
+
+[tasks.run]
+command = "cargo"
+args = ["run"]
+
+[tasks.run_release]
+extend = "run"
+args = ["run", "--release"]
+dependencies = ["build"]
