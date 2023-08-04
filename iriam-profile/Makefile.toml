@@ -1,4 +1,4 @@
-extend = "../../Makefile.toml"
+extend = "../Makefile.toml"
 
 [tasks.examples_build]
 alias = "build"
