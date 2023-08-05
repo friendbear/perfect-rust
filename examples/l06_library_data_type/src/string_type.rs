@@ -9,24 +9,24 @@ mod string_type {
         assert!(&s == "xabcd");
         s.push_str("efg");
         assert!(&s == "xabcdefg");
-        s.insert_str(0,"[ ");
-        s.insert_str(s.len()," ]");
+        s.insert_str(0, "[ ");
+        s.insert_str(s.len(), " ]");
         assert!(&s == "[ xabcdefg ]");
     }
     #[test]
     fn replace() {
         let s = String::from("山田太郎, 山崎花子");
-        let r = s.replace("山",  "吉");
+        let r = s.replace("山", "吉");
         dbg!(&r);
         assert!(r.eq("吉田太郎, 吉崎花子"));
-        let r = s.replacen("山",  "吉", 1);
+        let r = s.replacen("山", "吉", 1);
         dbg!(&r);
         assert!(r.eq("吉田太郎, 山崎花子"));
 
         let mut s = s.clone();
         let offset = s.find("太").unwrap_or(s.len());
         s.replace_range(..offset, "鈴木");
-        assert!{s.starts_with("鈴木")}
+        assert! {s.starts_with("鈴木")}
     }
 
     #[test]
