@@ -3,11 +3,12 @@ mod branch_match {
 
     #[test]
     fn branch_1() {
+
         let x = 10;
         match x {
             1 => assert!(false),
             2 => assert!(false),
-            _ => assert!(true),
+            _ => assert!(true)
         }
     }
     #[test]
@@ -21,6 +22,7 @@ mod branch_match {
     }
 
     #[test]
+    /// match-let
     fn branch_3() {
         let calc = |x: i32| x * 10;
         let y = 3;
@@ -33,6 +35,7 @@ mod branch_match {
         assert!(result == 300);
     }
     #[test]
+    /// Range and OR
     fn branch_4() {
         let calc = |x: i32| x * 10;
         let value = 30;
@@ -47,6 +50,7 @@ mod branch_match {
         assert!(result == 400);
     }
     #[test]
+    /// guard
     fn branch_5() {
         let value = (10, 25);
         let result = match value {
