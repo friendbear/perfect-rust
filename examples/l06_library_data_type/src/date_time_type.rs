@@ -8,7 +8,6 @@ mod date_time_type {
     use std::time::SystemTime;
 
     use chrono::prelude::*;
-    use chrono_tz::Tz;
 
     #[test]
     fn instantiate() {
