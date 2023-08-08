@@ -3,7 +3,6 @@ mod linked_list_type {
     use std::collections::LinkedList;
     #[test]
     pub fn instantiate() {
-
         let string_list: LinkedList<String> = LinkedList::new();
         assert!(string_list.is_empty());
         assert!(string_list.len() == 0);
@@ -36,7 +35,7 @@ mod linked_list_type {
         let result = list_a.iter_mut().map(|x| *x * 10).collect::<Vec<i32>>();
         assert_eq!(&[100, 200, 300], &result[..]);
         match list_a.back_mut() {
-            None => {},
+            None => {}
             Some(v) => *v = 0,
         }
         assert!(list_a.back().unwrap() == &0);
@@ -53,6 +52,5 @@ mod linked_list_type {
 
         list_a.clear();
         assert!(list_a.is_empty());
-
     }
 }

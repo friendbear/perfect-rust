@@ -56,14 +56,17 @@ mod hash_map_type {
                 _ => assert!(false),
             }
         }
+
     }
     #[test]
     fn remove() {
         let mut map_x: HashMap<i64, &str, RandomState> =
             HashMap::from_iter([(1, "ABC"), (2, "DEF"), (10, "XYZ")]);
+
         assert_eq!(Some("XYZ"), map_x.remove(&10));
         assert_eq!(None, map_x.remove(&100));
         map_x.clear();
         assert!(map_x.is_empty());
+
     }
 }
