@@ -3,11 +3,12 @@ mod branch_match {
 
     #[test]
     fn branch_1() {
+
         let x = 10;
         match x {
             1 => assert!(false),
             2 => assert!(false),
-            _ => assert!(true),
+            _ => assert!(true)
         }
     }
     #[test]
@@ -16,11 +17,12 @@ mod branch_match {
         match x {
             "山田太郎" => assert!(true),
             "鈴木花子" => assert!(false),
-            _ => assert!(false),
+            _ => assert!(false)
         }
     }
 
     #[test]
+    /// match-let
     fn branch_3() {
         let calc = |x: i32| x * 10;
         let y = 3;
@@ -28,18 +30,19 @@ mod branch_match {
             1 => calc(10),
             2 => calc(20),
             3 => calc(30),
-            _ => calc(0),
+            _ => calc(0)
         };
         assert!(result == 300);
     }
     #[test]
+    /// Range and OR
     fn branch_4() {
         let calc = |x: i32| x * 10;
         let value = 30;
-        let result = match value {
-            1..=3 => calc(10),
-            4..=6 => calc(20),
-            7..=9 => calc(30),
+        let result = match value{
+            1 ..=3 => calc(10),
+            4 ..=6 => calc(20),
+            7 ..=9 => calc(30),
             10 | 20 | 30 => calc(40),
             21..=25 | 31..=35 => calc(50),
             _ => calc(0),
@@ -47,6 +50,7 @@ mod branch_match {
         assert!(result == 400);
     }
     #[test]
+    /// guard
     fn branch_5() {
         let value = (10, 25);
         let result = match value {
