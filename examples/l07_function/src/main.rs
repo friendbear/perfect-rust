@@ -2,11 +2,14 @@ mod basic_function;
 mod function_type;
 mod generics;
 mod ownership;
+mod life_time;
+
 fn main() {
     basic_functions();
     function_types();
     generics();
     ownerships();
+    life_time();
 }
 
 /// 基本的な関数の定義
@@ -45,4 +48,8 @@ fn ownerships() {
     ownership::ownership_function_move();
     ownership::ownership_function_reference();
     ownership::ownership_function_call_return_instance_move();
+}
+
+fn life_time() {
+    life_time::life_time_4();    
 }
