@@ -1,8 +1,10 @@
 mod basic_function;
 mod function_type;
+mod generics;
 fn main() {
     basic_functions();
     function_types();
+    generics();
 }
 
 /// 基本的な関数の定義
@@ -25,4 +27,10 @@ fn function_types() {
     function_type::use_function_1();
     function_type::use_function_2();
     function_type::use_function_3();
+}
+
+/// ジェネリックとトレイと境界
+fn generics() {
+    generics::use_add();
+    generics::use_sub();
 }
