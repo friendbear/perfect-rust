@@ -1,10 +1,12 @@
 mod basic_function;
 mod function_type;
 mod generics;
+mod ownership;
 fn main() {
     basic_functions();
     function_types();
     generics();
+    ownerships();
 }
 
 /// 基本的な関数の定義
@@ -33,4 +35,14 @@ fn function_types() {
 fn generics() {
     generics::use_add();
     generics::use_sub();
+}
+
+/// 所有権
+fn ownerships() {
+    ownership::ownership_move();
+    ownership::ownership_reference();
+    ownership::ownership_clone();
+    ownership::ownership_function_move();
+    ownership::ownership_function_reference();
+    ownership::ownership_function_call_return_instance_move();
 }
