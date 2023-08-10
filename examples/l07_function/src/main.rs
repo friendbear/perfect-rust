@@ -1,8 +1,9 @@
 mod basic_function;
 mod function_type;
 mod generics;
-mod ownership;
 mod life_time;
+mod option_type;
+mod ownership;
 
 fn main() {
     basic_functions();
@@ -10,6 +11,7 @@ fn main() {
     generics();
     ownerships();
     life_time();
+    option_types();
 }
 
 /// 基本的な関数の定義
@@ -21,7 +23,10 @@ fn basic_functions() {
     basic_function::print_meessage_3(&mut message);
 
     println!("{}", basic_function::print_meessage_4(&String::from("")));
-    println!("{}", basic_function::print_meessage_4(&String::from("戻り値付き変数")));
+    println!(
+        "{}",
+        basic_function::print_meessage_4(&String::from("戻り値付き変数"))
+    );
     let m = basic_function::print_meessage_4(&String::from("-"));
     let _m2 = m.clone();
     println!("{}", m);
@@ -51,5 +56,11 @@ fn ownerships() {
 }
 
 fn life_time() {
-    life_time::life_time_4();    
+    life_time::life_time_4();
+}
+
+fn option_types() {
+    option_type::declare();
+    option_type::use_div(10, 5);
+    option_type::use_div(10, 0);
 }

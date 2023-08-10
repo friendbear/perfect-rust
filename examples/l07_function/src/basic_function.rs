@@ -1,4 +1,3 @@
-
 pub fn print_meessage_1() {
     println!("基本的な関数定義");
 }
@@ -12,7 +11,7 @@ pub fn print_meessage_3(message: &mut String) {
     println!("{}", message);
 }
 
-pub fn print_meessage_4(message: &String) ->String {
+pub fn print_meessage_4(message: &String) -> String {
     if message.eq("") {
         return String::from("Empty String");
     }

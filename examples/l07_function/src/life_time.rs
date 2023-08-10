@@ -1,6 +1,4 @@
-
 fn compare_len<'a>(value1: &'a String, value2: &'a String) -> &'a String {
-
     if value1.len() > value2.len() {
         value1
     } else {
