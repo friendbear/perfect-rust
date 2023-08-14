@@ -12,8 +12,6 @@ fn div(v1: i32, v2: i32) -> Result<i32, &'static str>
 
 #[cfg(test)]
 mod result_type {
-    use std::{num::ParseIntError, str::ParseBoolError};
-
     use super::*;
 
     #[test]
@@ -34,6 +32,13 @@ mod result_type {
         assert_eq!(div_value.unwrap_err(), "Zero division");
     }
 
+    #[test]
+    fn method_verification() {
+
+        assert_eq!(true, Ok::<(), ()>(()).is_ok());
+        
+        assert_eq!(true, Err::<(), ()>(()).is_err());
+    }
     #[test]
     fn method_get() {
         assert_eq!(Ok::<(), ()>(()).unwrap(), ());
