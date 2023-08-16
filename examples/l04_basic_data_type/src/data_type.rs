@@ -21,7 +21,7 @@ mod data_type {
     }
     #[test]
     fn boolean_method() {
-        assert_eq!(true.then(|| "true"), Some("true"));
+        assert_eq!(true.then_some("true"), Some("true"));
     }
 
     #[test]

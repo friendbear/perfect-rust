@@ -15,8 +15,8 @@ mod str_type {
     #[test]
     fn methods_2() {
         let str_value = "山田太郎";
-        assert!(str_value.contains("田"));
-        assert_eq!(str_value.find("田").unwrap(), 3);
+        assert!(str_value.contains('田'));
+        assert_eq!(str_value.find('田').unwrap(), 3);
         let str_value = "example.txt";
         assert!(str_value.ends_with(".txt"));
         assert!(str_value.starts_with("example"));
