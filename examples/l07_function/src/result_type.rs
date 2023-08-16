@@ -34,9 +34,8 @@ mod result_type {
 
     #[test]
     fn method_verification() {
-
         assert_eq!(true, Ok::<(), ()>(()).is_ok());
-        
+
         assert_eq!(true, Err::<(), ()>(()).is_err());
     }
     #[test]

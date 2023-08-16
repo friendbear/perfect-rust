@@ -8,7 +8,7 @@ struct LiveStreamer {
 }
 struct Builder(LiveStreamer);
 fn main() {
-    let st = vec![
+    let streamer = vec![
         Builder::new().with_name("eL(神様)").build(),
         Builder::new().with_name("はしちゃん").with_mark("🥢💙🖤").build(),
         Builder::new().with_mark("☁️🎀").build(),
@@ -23,19 +23,19 @@ fn main() {
                 + &s.x_name.unwrap_or_default()
         )
     };
-    st.into_iter().for_each(|s| closure(s));
+    streamer.into_iter().for_each(|s| closure(s));
 }
 impl Builder {
-    fn new() -> Builder {
+    fn new() -> Self {
         Builder(LiveStreamer::default())
     }
-    fn with_name(&self, name: &str) -> Builder {
+    fn with_name(&self, name: &str) -> Self {
         Builder(LiveStreamer {
             name: Some(name.to_string()),
             ..self.0.clone()
         })
     }
-    fn with_mark(&self, mark: &str) -> Builder {
+    fn with_mark(&self, mark: &str) -> Self {
         Builder(LiveStreamer {
             mark: Some(mark.to_string()),
             ..self.0.clone()
@@ -61,4 +61,17 @@ impl Display for LiveStreamer {
         )?;
         Ok(())
     }
+}
+
+fn str_sort() {
+    let mut s: Vec<char> = "🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢".chars().collect();
+    s.sort();
+    let filter = s.iter().filter(|&s| *s != '\u{ff9f}').map(|c| c.to_string()).collect::<String>();
+//    let retain = s.retain(|&c| c != '\u{ff9f}');
+    println!("{}", filter);
+}
+
+#[test]
+fn str_sort_test() {
+    str_sort();
 }
