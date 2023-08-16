@@ -34,7 +34,7 @@ where
     F: FnOnce(i32, &[i32]) -> i32,
 {
     let closure = f;
-    closure(init, values);
+    closure(init, values)
 }
 #[cfg(test)]
 mod closure {
