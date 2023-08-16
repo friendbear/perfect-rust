@@ -7,8 +7,8 @@ mod data_type {
         assert_eq!(10, x.abs());
         assert_eq!(-1, x.signum());
         assert_eq!(-1000, x.pow(3));
-        assert_eq!(false, x.is_positive());
-        assert_eq!(true, x.is_negative());
+        assert!(!x.is_positive());
+        assert!(x.is_negative());
         assert_eq!(x, x.clone());
         assert_eq!(String::from("-10"), x.to_string());
     }
@@ -21,7 +21,7 @@ mod data_type {
     }
     #[test]
     fn boolean_method() {
-        assert_eq!(true.then(|| "true"), Some("true"));
+        assert_eq!(true.then_some("true"), Some("true"));
     }
 
     #[test]
