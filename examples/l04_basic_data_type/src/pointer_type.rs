@@ -11,7 +11,6 @@ pub fn print_row_pointer() {
 }
 #[cfg(test)]
 mod pointer_type {
-    use super::*;
 
     #[test]
     fn declare_and_use_const_pointer() {
@@ -24,8 +23,8 @@ mod pointer_type {
         println!("ptr {:p}, {:p}", &x, x_ptr);
 
         unsafe {
-//error            *x_ptr = 0; 
-//error            *y_ptr = "XYZ";
+            //error            *x_ptr = 0;
+            //error            *y_ptr = "XYZ";
             assert_eq!(*x_ptr, 100);
             assert_eq!(*y_ptr, "ABC");
         }
@@ -46,3 +45,4 @@ mod pointer_type {
         }
     }
 }
+

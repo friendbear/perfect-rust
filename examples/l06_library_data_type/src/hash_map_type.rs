@@ -53,10 +53,9 @@ mod hash_map_type {
         for k in map_x.keys() {
             match k {
                 1 | 2 | 10 => assert!(true),
-                _ => assert!(false),
+                _ => unreachable!(),
             }
         }
-
     }
     #[test]
     fn remove() {
@@ -67,6 +66,5 @@ mod hash_map_type {
         assert_eq!(None, map_x.remove(&100));
         map_x.clear();
         assert!(map_x.is_empty());
-
     }
 }

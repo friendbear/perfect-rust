@@ -58,8 +58,7 @@ pub fn ownership_function_reference() {
 }
 
 fn move_instance() -> String {
-    let r = String::from("return string");
-    r
+    String::from("return string")
 }
 pub fn ownership_function_call_return_instance_move() {
     let x = move_instance();

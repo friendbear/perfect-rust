@@ -132,7 +132,7 @@ mod option_type {
         if let None = div_to_string(10, 0) {
             assert!(true);
         } else {
-            assert!(false);
+            unreachable!();
         }
     }
 }

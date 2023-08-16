@@ -9,7 +9,7 @@ mod slice {
         assert_eq!(slice.first().unwrap(), &100);
         assert_eq!(slice.last().unwrap(), &104);
         assert_eq!(slice.get(2).unwrap(), &102);
-        assert_eq!(slice.is_empty(), false);
+        assert!(!slice.is_empty());
         assert_eq!(slice.len(), 5);
     }
 

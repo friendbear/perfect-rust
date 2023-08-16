@@ -15,10 +15,10 @@ mod hash_set_type {
         if set_a.insert(70) {
             assert!(true);
         } else {
-            assert!(false);
+            unreachable!();
         }
         if set_a.remove(&100) {
-            assert!(false);
+            unreachable!();
         } else {
             assert!(true);
         }
@@ -33,14 +33,14 @@ mod hash_set_type {
         if let Some(_v) = set_a.get(&10) {
             assert!(true);
         } else {
-            assert!(false);
+            unreachable!();
         }
         let b = set_a.iter().all(|v| v >= &0);
         assert!(b);
         set_a.clear();
         assert!(set_a.is_empty());
     }
-    
+
     #[test]
     fn set_operation() {
         let set_a: HashSet<i32> = vec![10, 20, 30, 50, 60].into_iter().collect();
@@ -57,6 +57,6 @@ mod hash_set_type {
         let x: Vec<i32> = set_a.difference(&set_b).cloned().collect();
         // aとbの対象差集合
         let x: Vec<i32> = set_a.symmetric_difference(&set_b).cloned().collect();
-
     }
 }
+
