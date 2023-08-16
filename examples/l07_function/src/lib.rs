@@ -1,4 +1,5 @@
 pub mod basic_function;
+pub mod closure;
 pub mod function_type;
 pub mod generics;
 pub mod life_time;
