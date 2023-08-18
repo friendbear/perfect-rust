@@ -1,15 +1,19 @@
-
 #[allow(dead_code)]
 struct Member<'a> {
     id: u32,
     name: &'a str,
     address: &'a str,
-    email: &'a str
+    email: &'a str,
 }
 
 impl<'a> Member<'a> {
     fn new(id: u32, name: &'a str, address: &'a str, email: &'a str) -> Self {
-        Self {id, name, address, email}
+        Self {
+            id,
+            name,
+            address,
+            email,
+        }
     }
 
     fn get_name(&self) -> &str {
