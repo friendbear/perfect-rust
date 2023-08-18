@@ -1,7 +1,7 @@
 # perfect-rust
 perfect-rust book
 
-
+[![wakatime](https://wakatime.com/badge/github/friendbear/perfect-rust.svg)](https://wakatime.com/badge/github/friendbear/perfect-rust)
 
 
 ## ref
