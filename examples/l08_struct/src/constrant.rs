@@ -55,8 +55,5 @@ mod test_constrant {
 
         customer.set_name("はしちゃん".to_owned());
         assert!(customer.get_name().eq("はしちゃん"));
-
-
     }
 }
-

@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 #[derive(Debug, Clone)]
 struct Customer<'a> {
     id: u32,
@@ -54,19 +56,24 @@ impl<'a> From<&Vec<&'a str>> for Customer<'a> {
 impl<'a> TryFrom<&Vec<&'a str>> for Customer<'a> {
     type Error = String;
     fn try_from(value: &Vec<&'a str>) -> Result<Self, Self::Error> {
-        let id = value[0].parse::<u32>().map_err(|e| e.to_string());
-        let result = match id {
-            Ok(v) => {
-                Ok(Customer {
-                    id: v,
-                    name: value[1],
-                    address: value[2],
-                    email: value[3],
-                });
-            }
-            Err(e) => Err(e),
-        };
-        result
+        let id = value[0].parse::<u32>().map_err(|e| e.to_string())?;
+        Ok(Customer {
+            id,
+            name: value.get(1).copied().ok_or("Missing name")?,
+            address: value.get(2).copied().ok_or("Missing address")?,
+            email: value.get(3).copied().ok_or("Missing email")?,
+        })
+    }
+}
+
+impl<'a> Display for Customer<'a> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(
+            f,
+            "{}:{}:{}:{}",
+            self.id, self.name, self.address, self.email
+        )?;
+        Ok(())
     }
 }
 
@@ -105,5 +112,10 @@ mod test_utility_trait {
         let customer = Customer::try_from(&customer_data);
 
         assert!(customer.unwrap().id == 10);
+    }
+
+    #[test]
+    fn use_format() {
+        eprintln!("{}", Customer::SAMPLE_1.to_string());
     }
 }

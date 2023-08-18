@@ -1,4 +1,3 @@
-
 /// 座標を表すタプル型構造体
 struct Coordinate(usize, usize);
 
