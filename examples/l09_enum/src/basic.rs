@@ -7,7 +7,7 @@ enum Season {
     Spring = 1,
     Summer,
     Autumn,
-    Winter
+    Winter,
 }
 impl Display for Season {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -15,7 +15,7 @@ impl Display for Season {
             Self::Spring => write!(f, "Spring(春):{}", Self::Spring as u8),
             Self::Summer => write!(f, "Summer(夏):{}", Self::Summer as u8),
             Self::Autumn => write!(f, "Autumn(秋):{}", Self::Autumn as u8),
-            Self::Winter => write!(f, "Winter(冬):{}", Self::Winter as u8)
+            Self::Winter => write!(f, "Winter(冬):{}", Self::Winter as u8),
         }?;
         Ok(())
     }
