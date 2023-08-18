@@ -1,10 +1,10 @@
-pub struct Customer {
+struct Customer {
     id: i32,
     name: String,
     address: String,
     email: String,
 }
-pub struct Member<'a> {
+struct Member<'a> {
     id: i32,
     name: &'a str,
     address: &'a str,
