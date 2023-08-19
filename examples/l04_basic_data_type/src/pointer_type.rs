@@ -45,4 +45,3 @@ mod pointer_type {
         }
     }
 }
-

@@ -59,4 +59,3 @@ mod hash_set_type {
         let x: Vec<i32> = set_a.symmetric_difference(&set_b).cloned().collect();
     }
 }
-
