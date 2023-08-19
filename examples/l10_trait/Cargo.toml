@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.75"
 csv = "1.2.2"
-serde = { version = "1.0.183", feattures=["derive"] }
+#serde = "1.0.183"
+serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.105"
 #generics = { path = "../../" }
