@@ -34,4 +34,3 @@ mod basic_type_test {
         assert_eq!('X', x.to_ascii_uppercase());
     }
 }
-
