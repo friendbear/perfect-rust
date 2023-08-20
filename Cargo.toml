@@ -10,6 +10,7 @@
 [workspace]
 members = [
     "examples/*",
+    "practice-collection/*",
     "iriam-profile/"
     ]
 
