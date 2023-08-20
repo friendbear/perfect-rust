@@ -1,7 +1,10 @@
+mod assosiation;
 mod generics;
+use crate::assosiation::try_out as ass;
+use crate::generics::try_out as gen;
+
 fn main() {
-    let json_reader = generics::traits_impl::JsonReaderImpl::<u32> {
-        phantom: std::marker::PhantomData,
-    };
-    println!("Hello, world!");
+    gen::use_generics_method();
+    ass::use_association_method();
+    gen::use_service_metthod();
 }
