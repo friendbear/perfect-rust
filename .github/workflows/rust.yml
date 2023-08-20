@@ -3,13 +3,34 @@ name: Rust
 on:
   push:
     branches: [ "main", "develop" ]
+    paths-ignore:
+      - "**.md"
+      - "Makefile"
+      - ".dockerignore"
+      - ".gitignore"
   pull_request:
     branches: [ "main" ]
-
+    paths-ignore:
+      - "**.md"
+      - "Makefile"
+      - ".dockerignore"
+      - ".gitignore"
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Run clippy
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - uses: Swatinem/rust-cache@v2
+      - name: Setup rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Run clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
   build:
 
     runs-on: ubuntu-latest
