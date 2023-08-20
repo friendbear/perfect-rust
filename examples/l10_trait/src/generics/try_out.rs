@@ -28,5 +28,4 @@ pub fn use_service_metthod() {
     let file_path = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/products.json");
     let product_from_json = read_service.json_reader(file_path).unwrap();
     println!("{:?}", product_from_json);
-
 }

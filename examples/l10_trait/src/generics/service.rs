@@ -3,7 +3,6 @@ use super::traits_impl::{CsvReaderImpl, JsonReaderImpl};
 use anyhow::Result;
 use serde::de::DeserializeOwned;
 
-
 pub struct ReadService<T> {
     // CsvReaderトレイトの実装型フィールド
     csv_reader: Box<dyn CsvReader<T>>,
