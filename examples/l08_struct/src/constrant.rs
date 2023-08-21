@@ -7,6 +7,7 @@ struct Customer {
 }
 impl Customer {
     /// 型関連関数
+    #[allow(dead_code)]
     fn new(id: u32, name: String, address: String, email: String) -> Self {
         Self {
             id,
@@ -16,10 +17,12 @@ impl Customer {
         }
     }
 
+    #[allow(dead_code)]
     fn get_name(&self) -> String {
         self.name.clone()
     }
 
+    #[allow(dead_code)]
     fn set_name(&mut self, name: String) {
         self.name = name;
     }

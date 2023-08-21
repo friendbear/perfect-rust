@@ -1,5 +1,6 @@
 #[repr(u64)] // u8, u16, u32, u64, c
 #[derive(Debug)]
+#[allow(dead_code)]
 enum Season<'a> {
     Spring(u8, Vec<&'a str>),
     Summer(u8, Vec<&'a str>),
@@ -8,6 +9,7 @@ enum Season<'a> {
 }
 
 impl<'a> Season<'a> {
+    #[allow(dead_code)]
     pub fn format_valiant(&self) -> String {
         match self {
             Self::Spring(x, y) => format!("春:{}ヶ月 {:?}", x, y),

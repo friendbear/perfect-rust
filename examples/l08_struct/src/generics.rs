@@ -1,4 +1,4 @@
-#[derive(Debug, Clone)]
+#[allow(dead_code)]
 struct Customer<T> {
     id: T,
     name: String,
@@ -7,6 +7,7 @@ struct Customer<T> {
 }
 
 impl<T> Customer<T> {
+    #[allow(dead_code)]
     fn new(id: T, name: String, address: String, email: String) -> Self {
         Self {
             id,
@@ -16,6 +17,7 @@ impl<T> Customer<T> {
         }
     }
 
+    #[allow(dead_code)]
     fn change_id(&mut self, id: T) {
         self.id = id;
     }

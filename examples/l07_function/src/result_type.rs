@@ -1,4 +1,5 @@
 /// Result<T,E>
+#[allow(dead_code)]
 fn div(v1: i32, v2: i32) -> Result<i32, &'static str>
 //where
 //    T: std::ops::Div<Output = T> + PartialEq + std::fmt::Debug,
@@ -6,12 +7,14 @@ fn div(v1: i32, v2: i32) -> Result<i32, &'static str>
     if v2.eq(&0) {
         return Err("Zero division");
     }
-    let r = (v1 / v2) as i32;
+    //let r = (v1 / v2) as i32;
+    //let r = (v1 / v2 ).try_into().expect("overflow error");
+    let r = v1 / v2;
     Ok(r)
 }
 
 #[cfg(test)]
-mod result_type {
+mod test_result_type {
     use super::*;
 
     #[test]
@@ -34,13 +37,13 @@ mod result_type {
 
     #[test]
     fn method_verification() {
-        assert_eq!(true, Ok::<(), ()>(()).is_ok());
+        assert!(Ok::<&str, ()>("Ok").is_ok());
 
-        assert_eq!(true, Err::<(), ()>(()).is_err());
+        assert!(Err::<(), &str>("Err").is_err());
     }
     #[test]
     fn method_get() {
-        assert_eq!(Ok::<(), ()>(()).unwrap(), ());
+        assert_eq!(Ok::<&str, ()>("Ok").unwrap(), "Ok");
         assert_eq!(Ok::<&str, ()>("Ok").unwrap_or("Err"), "Ok");
         assert_eq!(Err::<&str, &str>("Err").unwrap_or("Err"), "Err");
         assert_eq!(Err::<(), &str>("Err").unwrap_err(), "Err");
@@ -84,17 +87,17 @@ mod result_type {
         assert_eq!(r.unwrap(), 2);
         let r = div(10, 0).or(Err("0"));
         assert_eq!(r, Err("0"));
-        let r = div(10, 0).or_else(|err| Err(err));
-        assert_eq!(r, Err("Zero division"));
+        let r = div(10, 0).map_err(|err| err.to_string());
+        assert_eq!(r.unwrap_err(), "Zero division".to_owned());
     }
     #[test]
     fn method_exchangee_result_to_option_type() {
-        if let Some(v) = div(10, 5).ok() {
+        if let Ok(v) = div(10, 5) {
             assert!(2 == v);
         }
 
-        if let None = div(10, 0).err() {
-            assert!(true);
+        if div(10, 0).err().is_none() {
+            //assert!(true);
         }
     }
 }

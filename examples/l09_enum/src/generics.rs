@@ -1,7 +1,6 @@
-use std::collections::LinkedList;
-
 #[repr(u64)] // u8, u16, u32, u64, c
 #[derive(Debug)]
+#[allow(dead_code)]
 enum Season<T> {
     Spring(u8, T),
     Summer(u8, T),
@@ -13,6 +12,7 @@ impl<T> Season<T>
 where
     T: std::iter::IntoIterator,
 {
+    #[allow(dead_code)]
     pub fn get_month(&self) -> &T {
         match self {
             Self::Spring(_, month) => month,
@@ -25,6 +25,7 @@ where
 
 #[test]
 fn use_generics() {
+    use std::collections::LinkedList;
     let spring = Season::Spring::<Vec<&str>>(3, vec!["3月", "4月", "5月"]);
     let spring = spring.get_month();
 

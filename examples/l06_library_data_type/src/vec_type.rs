@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod vec_type {
+mod test_vec_type {
     use std::{cmp::Reverse, ops::Add, vec};
 
     #[test]

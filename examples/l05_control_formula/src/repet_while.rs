@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod repet_while {
+mod test_repet_while {
 
     #[test]
     fn while_1() {

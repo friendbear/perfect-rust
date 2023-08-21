@@ -1,12 +1,12 @@
-use std::fmt::format;
 
 fn div(v1: i32, v2: i32) -> Option<i32> {
     if v2 == 0 {
         return None;
     }
-    let r = (v1 / v2) as i32;
+    let r = (v1 as f32 / v2 as f32) as i32;
     Some(r)
 }
+#[allow(dead_code)]
 fn div_to_string(v1: i32, v2: i32) -> Option<String> {
     let result = div(v1, v2)?;
     Some(result.to_string())
@@ -19,6 +19,7 @@ fn _gpt_div(v1: i32, v2: i32) -> Option<i32> {
 }
 */
 
+#[allow(dead_code)]
 fn sq_then_to_string(x: u32) -> Option<String> {
     x.checked_mul(x).map(|sq| sq.to_string())
 }
@@ -39,7 +40,7 @@ pub fn use_div(x: i32, y: i32) {
 }
 
 #[cfg(test)]
-mod option_type {
+mod test_option_type {
     use super::*;
 
     #[test]
@@ -50,11 +51,12 @@ mod option_type {
 
     #[test]
     fn method_get() {
+//        let k = 2;
         assert!(div(10, 5).unwrap() == 2);
         assert!(div(10, 5).unwrap_or(-1) == 2);
         assert!(div(10, 0).unwrap_or(-1) == -1);
-        assert!(div(10, 5).unwrap_or_else(|| -1) == 2);
-        assert!(div(10, 0).unwrap_or_else(|| -1) == -1);
+//        assert!(div(10, 5).unwrap_or_else(|| k * -1) == 2);
+//        assert!(div(10, 0).unwrap_or_else(|| k * -1) == -2);
         assert!(div(10, 5).unwrap_or_default() == 2);
         assert!(div(10, 0).unwrap_or_default() == 0);
     }
@@ -63,15 +65,16 @@ mod option_type {
     fn method_combinator() {
         let closure = |x: i32| x.to_string();
         // Important None.and_then(|v: U| Some(v)
-        assert_eq!(None.and_then(|some_value: i32| Some(some_value)), None);
-        assert_eq!(None.and_then(|some_value: String| Some(some_value)), None);
-        assert_eq!(None.and_then(|some_value| Some(closure(some_value))), None);
+        //assert_eq!(None.and_then(|some_value: i32| Some(some_value + 1)), None);
+        assert_eq!(None.map(|some_value: i32| Some(some_value + 1)), None);
+        assert_eq!(None.map(|some_value: String| Some(some_value + "-")), None);
+        assert_eq!(None.map(|some_value| Some(closure(some_value))), None);
         assert_eq!(
-            Some(1).and_then(|some_value| Some(some_value.to_string())),
+            Some(1).map(|some_value| some_value.to_string()),
             Some("1".to_owned())
         );
         assert_eq!(
-            Some(1).and_then(|some_value| Some(closure(some_value))),
+            Some(1).map(closure),
             Some("1".to_owned())
         );
 
@@ -86,7 +89,7 @@ mod option_type {
         assert_eq!(
             Some((10, 20))
                 .and_then(|v: (i32, i32)| v.0.checked_add(v.1))
-                .map_or(None, |v| Some(v))
+                .map_or(Some(-1), Some)
                 .unwrap(),
             30
         );
@@ -94,8 +97,8 @@ mod option_type {
         assert_eq!(None.or(Some("None")), Some("None"));
         assert_eq!(Some(1).or(Some(0)), Some(1));
 
-        assert_eq!(None.or_else(|| Some("None")), Some("None"));
-        assert_eq!(Some(1).or_else(|| Some(0)), Some(1));
+        assert_eq!(None::<&str>.or(None), None);
+        assert_eq!(Some(1).or(Some(0)), Some(1));
 
         assert_eq!(
             Some(vec![("ABC", "CDF")]).map_or(Vec::<(&str, &str)>::new(), |v| v),
@@ -116,10 +119,12 @@ mod option_type {
         );
 
         let x = Some("foo");
-        assert_eq!(x.ok_or_else(|| 0), Ok("foo"));
+        //assert_eq!(x.ok_or_else(|| 0), Ok("foo"));
+        assert_eq!(x.ok_or(0), Ok("foo"));
 
         let x: Option<&str> = None;
-        assert_eq!(x.ok_or_else(|| 0), Err(0));
+        //assert_eq!(x.ok_or_else(|| 0), Err(0));
+        assert_eq!(x.ok_or(0), Err(0));
 
         assert_eq!(
             None::<String>.ok_or_else(|| "Error".to_owned(),),
@@ -129,8 +134,9 @@ mod option_type {
 
     #[test]
     fn never() {
-        if let None = div_to_string(10, 0) {
-            assert!(true);
+        //if let None = div_to_string(10, 0) {
+        if div_to_string(10, 0).is_none() {
+            
         } else {
             unreachable!();
         }

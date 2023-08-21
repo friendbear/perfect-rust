@@ -4,6 +4,7 @@ use crate::generics::traits_impl::{CsvReaderImpl, JsonReaderImpl};
 
 use super::service::ReadService;
 
+#[allow(dead_code)]
 pub fn use_generics_method() {
     // ファイルパスを生成する
     let file_path = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/number.csv");
@@ -19,6 +20,7 @@ pub fn use_generics_method() {
     println!("{:?}", deserialize_json);
 }
 
+#[allow(dead_code)]
 pub fn use_service_metthod() {
     let read_service = ReadService::<Product>::new();
     let file_path = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/products.csv");

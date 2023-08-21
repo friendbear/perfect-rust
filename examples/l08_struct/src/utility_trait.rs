@@ -8,7 +8,8 @@ struct Customer<'a> {
     email: &'a str,
 }
 impl<'a> Customer<'a> {
-    const SAMPLE_1: Customer<'a> = Customer {
+    #[allow(dead_code)]
+    pub const SAMPLE_1: Customer<'a> = Customer {
         id: 1,
         name: "はしちゃん",
         address: "北海道",
@@ -25,34 +26,30 @@ impl<'a> Default for Customer<'a> {
     fn default() -> Self {
         Self {
             id: 0,
-            name: "",
+            name: "No name",
             address: "",
             email: "",
         }
     }
 }
+/* TODO
+impl<'a> Into<(u32, &'a str, &'a str, &'a str)> for Customer<'a> {
+    fn into(self, (id: u32, name: &'a str, address: &'a str, email: &'a str)) -> Self {
+        Self {id name, address, email}
+    }
+}
+*/
 
-impl<'a> Into<Customer<'a>> for (u32, &'a str, &'a str, &'a str) {
-    fn into(self) -> Customer<'a> {
-        Customer {
-            id: self.0,
-            name: self.1,
-            address: self.2,
-            email: self.3,
+impl<'a> From<(u32, &'a str, &'a str, &'a str)> for Customer<'a> {
+    fn from(val: (u32, &'a str, &'a str, &'a str)) -> Self {
+        Self {
+            id: val.0,
+            name: val.1,
+            address: val.2,
+            email: val.3
         }
     }
 }
-/*
-impl<'a> From<&Vec<&'a str>> for Customer<'a> {
-    fn from(v: &Vec<&'a str>) -> Self {
-        Self {
-            id: v[0].parse::<u32>().unwrap(),
-            name: v[1],
-            address: v[2],
-            email: v[3],
-        }
-    }
-} */
 impl<'a> TryFrom<&Vec<&'a str>> for Customer<'a> {
     type Error = String;
     fn try_from(value: &Vec<&'a str>) -> Result<Self, Self::Error> {
@@ -78,23 +75,22 @@ impl<'a> Display for Customer<'a> {
 }
 
 mod test_utility_trait {
-    use super::Customer;
 
     #[test]
     fn use_debug() {
-        eprintln!("{:?}", Customer::SAMPLE_1);
+        eprintln!("{:?}", super::Customer::SAMPLE_1);
     }
 
     #[test]
     fn use_clone() {
-        eprintln!("{:?}", Customer::SAMPLE_1.clone());
+        eprintln!("{:?}", super::Customer::SAMPLE_1.clone());
 
-        let mut target = Customer::default();
-        target.clone_from(&Customer {
+        let mut target = super::Customer::default();
+        target.clone_from(&super::Customer {
             id: 2,
             name: "クマさん",
             address: "千葉県",
-            ..Customer::SAMPLE_1.clone()
+            ..super::Customer::SAMPLE_1.clone()
         });
         eprintln!("{:?}", target);
     }
@@ -109,13 +105,13 @@ mod test_utility_trait {
     #[test]
     fn use_try_from() {
         let customer_data = vec!["10", "ガイさん", "", ""];
-        let customer = Customer::try_from(&customer_data);
+        let customer = super::Customer::try_from(&customer_data);
 
         assert!(customer.unwrap().id == 10);
     }
 
     #[test]
     fn use_format() {
-        eprintln!("{}", Customer::SAMPLE_1.to_string());
+        eprintln!("{}", super::Customer::SAMPLE_1);
     }
 }

@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod repet_loop {
+mod test_repet_loop {
     use std::collections::HashMap;
 
     #[test]

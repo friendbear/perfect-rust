@@ -2,6 +2,7 @@ use crate::assosiation::entities::Product;
 use crate::assosiation::traits::{CsvReader, JsonReader};
 use crate::assosiation::traits_impl::{CsvReaderImpl, JsonReaderImpl};
 
+#[allow(dead_code)]
 pub fn use_association_method() {
     // ファイルパスを生成する
     let file_path = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/number.csv");

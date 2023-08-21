@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod hash_set_type {
+mod test_hash_set_type {
     use std::collections::HashSet;
     #[test]
     fn instantiate() {
@@ -13,14 +13,12 @@ mod hash_set_type {
         let mut set_a: HashSet<i32> = vec![10, 20, 30].into_iter().collect();
         set_a.extend([40, 50, 60]);
         if set_a.insert(70) {
-            assert!(true);
         } else {
             unreachable!();
         }
         if set_a.remove(&100) {
             unreachable!();
         } else {
-            assert!(true);
         }
 
         set_a.retain(|&k| k.is_negative());
@@ -31,7 +29,6 @@ mod hash_set_type {
     fn get() {
         let mut set_a: HashSet<i32> = vec![10, 20, 30].into_iter().collect();
         if let Some(_v) = set_a.get(&10) {
-            assert!(true);
         } else {
             unreachable!();
         }
@@ -52,10 +49,10 @@ mod hash_set_type {
         // TODO
         assert_eq!(vec![10, 20, 30, 40, 50, 60, 70, 80], &x[..]);
         // aとbの積集合
-        let x: Vec<i32> = set_a.intersection(&set_b).cloned().collect();
+        let _x: Vec<i32> = set_a.intersection(&set_b).cloned().collect();
         // aとbの差集合
-        let x: Vec<i32> = set_a.difference(&set_b).cloned().collect();
+        let _x: Vec<i32> = set_a.difference(&set_b).cloned().collect();
         // aとbの対象差集合
-        let x: Vec<i32> = set_a.symmetric_difference(&set_b).cloned().collect();
+        let _x: Vec<i32> = set_a.symmetric_difference(&set_b).cloned().collect();
     }
 }

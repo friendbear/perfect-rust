@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod str_type {
+mod test_str_type {
 
     #[test]
     fn methods_1() {

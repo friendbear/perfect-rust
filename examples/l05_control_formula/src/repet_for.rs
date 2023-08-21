@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod repet_for {
+mod test_repet_for {
 
     #[test]
     fn for_1() {

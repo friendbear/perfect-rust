@@ -1,4 +1,5 @@
-fn closure_sum(values: &Vec<i32>) -> i32 {
+#[allow(dead_code)]
+fn closure_sum(values: &[i32]) -> i32 {
     let sum = || {
         let mut sum = 0;
         for v in values.iter() {
@@ -8,7 +9,8 @@ fn closure_sum(values: &Vec<i32>) -> i32 {
     };
     sum()
 }
-fn closure_sum_move(values: &Vec<i32>) -> i32 {
+#[allow(dead_code)]
+fn closure_sum_move(values: &[i32]) -> i32 {
     let sum = move || {
         let mut sum = 0;
         for v in values.iter() {
@@ -20,6 +22,7 @@ fn closure_sum_move(values: &Vec<i32>) -> i32 {
 }
 
 /// 初期値に対してスライス値を減算するclosure
+#[allow(dead_code)]
 fn return_closure_decrease_logic() -> impl FnOnce(i32, &[i32]) -> i32 {
     move |init, values| {
         let mut dec = init;
@@ -29,6 +32,7 @@ fn return_closure_decrease_logic() -> impl FnOnce(i32, &[i32]) -> i32 {
         dec
     }
 }
+#[allow(dead_code)]
 fn use_closure<F>(init: i32, values: &[i32], f: F) -> i32
 where
     F: FnOnce(i32, &[i32]) -> i32,
@@ -37,7 +41,7 @@ where
     closure(init, values)
 }
 #[cfg(test)]
-mod closure {
+mod mod_closure {
 
     #[test]
     fn closure_sum() {
@@ -54,7 +58,7 @@ mod closure {
         eprintln!("{:?}", v);
 
         let count = move || {
-            let value = v.iter().fold(0, |acc, v| acc + v);
+            let value = v.iter().fold(0, |acc, v| acc - v);
             value
         };
         eprintln!("count = {}", count());

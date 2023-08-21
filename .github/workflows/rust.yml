@@ -29,7 +29,7 @@ jobs:
       - name: Setup rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --all-targets --all-features -- -D warnings -D dead-code -D clippy::unnecessary-fold -D clippy::option-map-or-none -D unused-imports -D unused-imports -D clippy::bind-instead-of-map -D clippy::redundant-closure -D clippy::option-map-or-none
 
   build:
 
@@ -37,10 +37,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Cache
+      uses: Swatinem/rust-cache@v1
     - name: Build
       run: cargo build --verbose
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test --all-targets --all-features --verbose
       
   examples:
     name: Examples
