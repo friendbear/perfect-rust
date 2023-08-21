@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod box_type {
+mod test_box_type {
 
     #[test]
     fn instantiate() {

@@ -1,10 +1,11 @@
 use chrono::prelude::*;
+#[allow(dead_code)]
 pub fn fixed_date_time_type() -> DateTime<Utc> {
-    let date_time: DateTime<Utc> = Utc.with_ymd_and_hms(2023, 02, 02, 0, 0, 0).unwrap();
+    let date_time: DateTime<Utc> = Utc.with_ymd_and_hms(2023, 2, 2, 0, 0, 0).unwrap();
     date_time
 }
 #[cfg(test)]
-mod date_time_type {
+mod test_date_time_type {
     use std::time::SystemTime;
 
     use chrono::prelude::*;

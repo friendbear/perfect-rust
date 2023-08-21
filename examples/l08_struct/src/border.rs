@@ -1,6 +1,6 @@
 use std::marker::Copy;
 use std::ops::Add;
-#[derive(Debug, Clone)]
+#[allow(dead_code)]
 struct Customer<T> {
     id: T,
     name: String,

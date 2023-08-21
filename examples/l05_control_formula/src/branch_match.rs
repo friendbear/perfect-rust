@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod branch_match {
+mod test_branch_match {
 
     #[test]
     fn branch_1() {
@@ -7,14 +7,14 @@ mod branch_match {
         match x {
             1 => unreachable!(),
             2 => unreachable!(),
-            _ => assert!(true),
+            _ => {},
         }
     }
     #[test]
     fn branch_2() {
         let x = "山田太郎";
         match x {
-            "山田太郎" => assert!(true),
+            "山田太郎" => {},
             "鈴木花子" => unreachable!(),
             _ => unreachable!(),
         }

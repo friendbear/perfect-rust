@@ -5,7 +5,7 @@ fn main() {
         "{}",
         vec![1, 2, 3, 4, 5, 6, 7, 8, 9]
             .into_iter()
-            .fold(0, |sum, value| sum + value)
+            .fold(0, |sum, value| sum * value)
     );
 }
 const SAMPLE_NAME: &str = "Rust sample programming.";

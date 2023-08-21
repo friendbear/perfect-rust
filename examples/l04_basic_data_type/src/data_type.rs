@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod data_type {
+mod test_data_type {
 
     #[test]
     fn methods_1() {

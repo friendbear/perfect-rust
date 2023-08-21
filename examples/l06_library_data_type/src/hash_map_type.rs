@@ -1,7 +1,7 @@
 /// HashMap<K,V,S=RandomState>
 ///
 #[cfg(test)]
-mod hash_map_type {
+mod test_hash_map_type {
 
     use std::collections::{hash_map::RandomState, HashMap};
     #[test]
@@ -10,8 +10,8 @@ mod hash_map_type {
         let map_y: HashMap<i32, i32> = HashMap::with_capacity(5);
         let map_z: HashMap<i32, i32> = HashMap::from_iter([]);
         assert!(map_x.is_empty());
-        assert!(map_y.len() == 0);
-        assert!(map_z.len() == 0);
+        assert!(map_y.is_empty());
+        assert!(map_z.is_empty());
     }
 
     #[test]
@@ -48,11 +48,11 @@ mod hash_map_type {
         }
         assert_eq!(map_x.get(&1).unwrap(), &"changed");
         assert!(map_x.contains_key(&2));
-        assert_eq!(map_x.get_key_value(&2).unwrap(), (&(2 as i64), &"DEF"));
+        assert_eq!(map_x.get_key_value(&2).unwrap(), (&(2_i64), &"DEF"));
 
         for k in map_x.keys() {
             match k {
-                1 | 2 | 10 => assert!(true),
+                1 | 2 | 10 => return,
                 _ => unreachable!(),
             }
         }

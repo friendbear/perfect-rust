@@ -10,12 +10,15 @@ struct Builder(LiveStreamer);
 fn main() {
     let streamer = vec![
         Builder::new().with_name("eL(神様)").build(),
-        Builder::new().with_name("はしちゃん").with_mark("🥢💙🖤").build(),
+        Builder::new()
+            .with_name("はしちゃん")
+            .with_mark("🥢💙🖤")
+            .build(),
         Builder::new().with_mark("☁️🎀").build(),
         Builder::new().with_mark("📘📗🌼").build(),
         Builder::new().with_mark("🐈‍⬛💜.*･").build(),
     ];
-    let closure = |s: S| {
+    let printer = |s: S| {
         println!(
             "{} Liked♡",
             s.name.unwrap_or_default()
@@ -23,7 +26,7 @@ fn main() {
                 + &s.x_name.unwrap_or_default()
         )
     };
-    streamer.into_iter().for_each(|s| closure(s));
+    streamer.into_iter().for_each(printer);
 }
 impl Builder {
     fn new() -> Self {
@@ -46,6 +49,7 @@ impl Builder {
     }
 }
 impl LiveStreamer {
+    #[allow(dead_code)]
     fn new(name: Option<String>, mark: Option<String>, x_name: Option<String>) -> Self {
         Self { name, mark, x_name }
     }
@@ -63,11 +67,19 @@ impl Display for LiveStreamer {
     }
 }
 
+#[allow(dead_code)]
 fn str_sort() {
-    let mut s: Vec<char> = "🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢".chars().collect();
+    let mut s: Vec<char> =
+        "🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢💙🖤.｡.:・ﾟ🥢"
+            .chars()
+            .collect();
     s.sort();
-    let filter = s.iter().filter(|&s| *s != '\u{ff9f}').map(|c| c.to_string()).collect::<String>();
-//    let retain = s.retain(|&c| c != '\u{ff9f}');
+    let filter = s
+        .iter()
+        .filter(|&s| *s != '\u{ff9f}')
+        .map(|c| c.to_string())
+        .collect::<String>();
+    //    let retain = s.retain(|&c| c != '\u{ff9f}');
     println!("{}", filter);
 }
 

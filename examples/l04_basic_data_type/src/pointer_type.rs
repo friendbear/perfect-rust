@@ -1,4 +1,4 @@
-#[warn(dead_code)]
+#[allow(dead_code)]
 pub fn print_row_pointer() {
     let x: i32 = 100;
     let y: &str = "ABC";
@@ -10,7 +10,7 @@ pub fn print_row_pointer() {
     println!("ptr {:p}, {:p}", &y, y_ptr);
 }
 #[cfg(test)]
-mod pointer_type {
+mod test_pointer_type {
 
     #[test]
     fn declare_and_use_const_pointer() {

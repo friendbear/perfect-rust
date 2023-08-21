@@ -1,9 +1,11 @@
+#[allow(dead_code)]
 struct Customer {
     id: i32,
     name: String,
     address: String,
     email: String,
 }
+#[allow(dead_code)]
 struct Member<'a> {
     id: i32,
     name: &'a str,

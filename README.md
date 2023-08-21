@@ -3,6 +3,9 @@ perfect-rust book
 
 [![wakatime](https://wakatime.com/badge/github/friendbear/perfect-rust.svg)](https://wakatime.com/badge/github/friendbear/perfect-rust)
 
+## ISBN
+978-4-297-13322-1
+![](ISBN978-4-297-13322-1.jpg)
 
 ## ref
 
@@ -15,4 +18,4 @@ perfect-rust book
 
 ## cargo watch option
 
-`cargo watch -x "test -- --nocapture`
+`cargo watch -x "test -- --nocapture"`

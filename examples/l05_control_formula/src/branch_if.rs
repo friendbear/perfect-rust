@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod branch_if {
+mod test_branch_if {
 
     #[test]
     fn branch_2() {
@@ -9,7 +9,7 @@ mod branch_if {
         } else if num == 2 {
             println!("num is 2")
         } else {
-            assert!(true);
+            
         }
     }
 

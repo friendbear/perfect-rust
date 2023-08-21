@@ -1,7 +1,9 @@
 /// 座標を表すタプル型構造体
+#[allow(dead_code)]
 struct Coordinate(usize, usize);
 
 /// ユニット型構造体の生成
+#[allow(dead_code)]
 struct OneState;
 
 #[cfg(test)]

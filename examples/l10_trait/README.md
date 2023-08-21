@@ -27,23 +27,23 @@ Box型とdynamicで抽象化
 ```mermaid
 classDiagram
 class ReadService {
-	<<struct>>
-	-csv_reader: Box~dyn CsvReader~T~~
-	-json_reader: Box~dyn JsonReader~T~~
+<<struct>>
+-csv_reader: Box~dyn CsvReader~T~~
+-json_reader: Box~dyn JsonReader~T~~
 
-	+new(): Self
-	+csv_read(file_path: &str): Result~Vec~T~~
-	+json_read(file_path: &str): Result~Vec~T~~
++new(): Self
++csv_read(file_path: &str): Result~Vec~T~~
++json_read(file_path: &str): Result~Vec~T~~
 }
 
 class CsvReader~T~ {
-	<<trait>>
-	+read(file_path: &str): Result~T~
+<<trait>>
++read(file_path: &str): Result~T~
 }
 
 class JsonReader~T~ {
-	<<trait>>
-	+read(file_path: &str): Result~T~
+<<trait>>
++read(file_path: &str): Result~T~
 }
 ReadService "1" o-- "1" CsvReader 
 ReadService "1" o-- "1" JsonReader 

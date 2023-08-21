@@ -7,6 +7,7 @@ struct Member<'a> {
 }
 
 impl<'a> Member<'a> {
+    #[allow(dead_code)]
     fn new(id: u32, name: &'a str, address: &'a str, email: &'a str) -> Self {
         Self {
             id,
@@ -16,10 +17,12 @@ impl<'a> Member<'a> {
         }
     }
 
+    #[allow(dead_code)]
     fn get_name(&self) -> &str {
         self.name.clone()
     }
 
+    #[allow(dead_code)]
     fn set_name(&mut self, name: &'a str) {
         self.name = name;
     }

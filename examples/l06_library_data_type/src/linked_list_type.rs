@@ -1,11 +1,10 @@
 #[cfg(test)]
-mod linked_list_type {
+mod test_linked_list_type {
     use std::collections::LinkedList;
     #[test]
     pub fn instantiate() {
         let string_list: LinkedList<String> = LinkedList::new();
         assert!(string_list.is_empty());
-        assert!(string_list.len() == 0);
     }
 
     #[test]

@@ -1,5 +1,5 @@
 #[cfg(test)]
-mod slice {
+mod test_slice {
     use std::ops::Range;
 
     #[test]

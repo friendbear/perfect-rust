@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 enum Shape {
     Rectangle {
         height: f64,
@@ -17,6 +18,7 @@ enum Shape {
     },
 }
 impl Shape {
+    #[allow(dead_code)]
     pub fn area(&self) -> f64 {
         match self {
             Self::Rectangle { height, width } => height * width,
