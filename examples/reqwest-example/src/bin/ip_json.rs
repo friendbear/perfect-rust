@@ -23,6 +23,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .json::<Ip>()
         .await?;
 
-    println!("{:?}", ip);
+    println!("{:?}", ip.origin);
     Ok(())
 }
