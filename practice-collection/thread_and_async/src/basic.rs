@@ -2,10 +2,11 @@ use std::thread;
 use std::thread::{Builder, JoinHandle};
 use std::time::Duration;
 
+#[allow(dead_code)]
 /// シンプルなスレッド
 /// JoinHandle<u64> を返す
 fn summery_thread_1(name: String, values: Vec<u64>) -> JoinHandle<u64> {
-    let join_handle = thread::spawn(move || {
+    thread::spawn(move || {
         let mut total: u64 = 0;
         for value in values {
             total += value;
@@ -13,10 +14,10 @@ fn summery_thread_1(name: String, values: Vec<u64>) -> JoinHandle<u64> {
             println!("{}: total={}", name, total);
         }
         total
-    });
-    join_handle
+    })
 }
 
+#[allow(dead_code)]
 /// Builder構造体
 /// - name()
 /// - stack_size()
