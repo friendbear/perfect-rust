@@ -1,14 +1,14 @@
-use thiserror::Error;
 use std::num::{ParseFloatError, ParseIntError};
+use thiserror::Error;
 
 /// thiserrorを利用することでErrorトレイトの実装
 /// #[error] アトリビュートを利用してエラーメッセージ設定ができるためDisplayトレエイトの実装が不要になる
 /// 🦀 タプルにはError型ではなくFromで変換した後の型を指定している Displayトレイトのto_string結果
-/// 
+///
 #[derive(Error, Debug)]
 enum SampleError {
     #[error("整数変換エラー:{0}")]
-    IntError(String),   
+    IntError(String),
     #[error("浮動小数点変換エラー:{0}")]
     FloatError(String),
 }
@@ -26,10 +26,10 @@ impl From<ParseFloatError> for SampleError {
 }
 
 mod from_attribute {
-    use thiserror::Error;
-    use std::num::{ParseFloatError, ParseIntError};
     use num_traits::NumOps;
+    use std::num::{ParseFloatError, ParseIntError};
     use std::str::FromStr;
+    use thiserror::Error;
     #[derive(Debug, Error)]
     enum SampleError {
         #[error(transparent)] // 透過させる
@@ -39,10 +39,10 @@ mod from_attribute {
     }
 
     #[allow(dead_code)]
-    fn string_to_num<T>(value: String) -> Result<T, SampleError> 
+    fn string_to_num<T>(value: String) -> Result<T, SampleError>
     where
         T: NumOps + FromStr,
-        SampleError: From<<T as FromStr>::Err>
+        SampleError: From<<T as FromStr>::Err>,
     {
         value.parse::<T>().map_err(SampleError::from)
     }
