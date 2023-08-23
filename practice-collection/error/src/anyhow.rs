@@ -1,6 +1,6 @@
-use std::str::FromStr;
 use num_traits::NumOps;
 use std::num::{ParseFloatError, ParseIntError};
+use std::str::FromStr;
 use thiserror::Error;
 
 #[derive(Debug, Error)]

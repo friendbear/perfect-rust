@@ -1,6 +1,6 @@
-use std::io::ErrorKind;
 use std::env::current_dir;
 use std::fs::File;
+use std::io::ErrorKind;
 /// エラー種別を表す列挙型
 #[allow(dead_code)]
 #[derive(Debug, Eq, PartialEq)]
@@ -20,8 +20,10 @@ fn parse_string_to_num(value: String, kind: ValueConversion) {
 
 #[allow(dead_code)]
 fn return_io_error_kind() -> ErrorKind {
-    let file_path = current_dir().map(|path_buf| path_buf.join("/notfind.txt"))
-        .map_err(|error| panic!("{}", error)).unwrap();
+    let file_path = current_dir()
+        .map(|path_buf| path_buf.join("/notfind.txt"))
+        .map_err(|error| panic!("{}", error))
+        .unwrap();
     let error = File::open(file_path).err();
     error.expect("unknown error").kind()
 }
@@ -41,10 +43,9 @@ mod test_basic {
     fn use_return_io_error_kind() {
         let kind = return_io_error_kind();
         match kind {
-            ErrorKind::NotFound => {},
-            ErrorKind::PermissionDenied => {},
+            ErrorKind::NotFound => {}
+            ErrorKind::PermissionDenied => {}
             _ => unreachable!(),
         }
     }
 }
-

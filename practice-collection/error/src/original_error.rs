@@ -1,9 +1,9 @@
+use num_traits::NumOps;
+use std::error::Error;
 /// 独自エラー型
 use std::fmt::{Display, Formatter};
-use std::error::Error;
-use std::num::{ParseIntError, ParseFloatError};
+use std::num::{ParseFloatError, ParseIntError};
 use std::str::FromStr;
-use num_traits::NumOps;
 #[derive(Debug)]
 enum SampleError {
     IntError(ParseIntError),
@@ -36,11 +36,10 @@ impl From<ParseFloatError> for SampleError {
 fn parse_num<T>(value: String) -> Result<T, SampleError>
 where
     T: NumOps + FromStr,
-    SampleError: From<<T as FromStr>::Err>
+    SampleError: From<<T as FromStr>::Err>,
 {
     value.parse::<T>().map_err(SampleError::from)
 }
-
 
 #[cfg(test)]
 mod test_original_error {
