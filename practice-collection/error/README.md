@@ -1,5 +1,6 @@
 
 # Error
+## Error の基本構造
 
 ```mermaid
 classDiagram
@@ -49,4 +50,14 @@ enum SampleError {
     #[error(transparent)]
     FloatError(#[from] ParseFloatError),
 }
+```
+
+## anyhow
+
+```rust
+// Result型のエイリアス SampleResult
+type SampleResult<T> = anyhow::Result<T, anyhow::Error>;
+
+...
+        anyhow::Error::new(error).context(content)
 ```
