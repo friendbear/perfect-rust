@@ -99,7 +99,7 @@ impl Summery {
 
     #[allow(dead_code)]
     /// crossbeam::sync::WaitGroup
-    /// 
+    ///
     fn use_wait_group(&self) {
         thread::scope(|scope| {
             let mut join_handles = Vec::with_capacity(3);
@@ -108,10 +108,11 @@ impl Summery {
             while num <= 2 {
                 let wg = wait_group.clone();
                 join_handles.push(
-                    scope.builder()
-                    .name(format!("{}{}", "summary", num))
-                    .stack_size(1024 * 3)
-                    .spawn(move |_| {
+                    scope
+                        .builder()
+                        .name(format!("{}{}", "summary", num))
+                        .stack_size(1024 * 3)
+                        .spawn(move |_| {
                             let result = self.summery(vec![
                                 10 * num,
                                 20 * num,
@@ -120,8 +121,8 @@ impl Summery {
                                 50 * num,
                             ]);
                             drop(wg);
-                        result
-                    })
+                            result
+                        })
                         .unwrap_or_else(|err| panic!("{:?}", err)),
                 );
                 num += 1;
@@ -140,16 +141,16 @@ impl Summery {
 
 #[test]
 fn thread_controller_1() {
-    let summery = Summery::default();
+    let summery = Summery;
     summery.summery_thread();
     summery.use_builder();
     Summery::use_barrier(); // threadの動機を取る
-    /*
-    summary2 finished, is_leader:true
-    summary0 finished, is_leader:false
-    summary1 finished, is_leader:false
-    thread name:summary0, result:150
-    thread name:summary1, result:155
-    thread name:summary2, result:160
-     */
+                            /*
+                            summary2 finished, is_leader:true
+                            summary0 finished, is_leader:false
+                            summary1 finished, is_leader:false
+                            thread name:summary0, result:150
+                            thread name:summary1, result:155
+                            thread name:summary2, result:160
+                             */
 }
