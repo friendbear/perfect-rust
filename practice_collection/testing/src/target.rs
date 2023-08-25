@@ -3,7 +3,7 @@ use std::fmt::{Display, Formatter, Debug};
 /// サンプルコードで利用するエラー列挙型
 #[allow(dead_code)]
 #[derive(Debug, Eq, PartialEq)]
-enum SampleError {
+pub enum SampleError {
     Msg(String)
 }
 impl Display for SampleError {
@@ -16,7 +16,7 @@ impl Display for SampleError {
 
 /// 顧客を表す構造体
 #[derive(Debug, Clone)]
-struct Guest {
+pub struct Guest {
     age: u32,
     campaign: bool,
 }
