@@ -1,6 +1,9 @@
+mod my_module {
+    include!("../../src/target.rs");
+}
 #[cfg(test)]
 mod simple_test {
-    use crate::target::{Guest,SampleError};
+    use super::my_module::{Guest,SampleError};
     use simple_test_case::test_case;
     // 正常系のテスト
     #[test_case(0, false, 0; "case01 age:0 campaign:false expected:0")]
@@ -12,7 +15,7 @@ mod simple_test {
     #[test_case(12, false, 500; "case07 age:12 campaign:false expected:500")]
     #[test_case(12, true, 450; "case08 age:12 campaign:true expected:450")]
     #[test]
-    fn calc_fee_test_01_08(age: u32, campaign: bool, expected: u32) {
+    fn test_calc_fee_test_01_08(age: u32, campaign: bool, expected: u32) {
         let guest = Guest::new(age, campaign);
         assert_eq!(expected, guest.calc_fee().unwrap());
     }
@@ -20,7 +23,7 @@ mod simple_test {
     #[test_case(121, false ; "case09 age:121 campaign:false")]
     #[test_case(121, true ; "case10 age:121 campaign:true")]
     #[test]
-    fn calc_fee_test_09_08(age: u32, campaign: bool) {
+    fn test_calc_fee_test_09_08(age: u32, campaign: bool) {
         let expected = SampleError::Msg(String::from("Age is incorrect."));
         let guest = Guest::new(age, campaign);
         assert_eq!(expected, guest.calc_fee().err().unwrap());
