@@ -1,3 +1,4 @@
+mod messaging_std;
 fn main() {
-    println!("Hello, world!");
+    messaging_std::execute();
 }
