@@ -32,3 +32,24 @@ ScopedJoinHandle は、crossbeam の scope 関数を使用して生成された�
 ScopedJoinHandle: スレッドハンドルの型を表します。スコープ内で生成されるスレッドのライフタイムを表すことから、スコープ内でのみ有効なハンドルとなります。
 <'_>: ライフタイムの省略形で、スコープ内のライフタイムを示します。スレッドの終了と共にハンドルが自動的に解放されるため、ライフタイムの指定が必要です。
 u64: スレッドが返す値の型を指定します。スレッドが終了する際にその値が取得できます。
+
+## スレッド間通信
+
+標準ライブラリ
+1. `std::sync::mpsc::channel::<T>()` 送受信のチャネルを作る(2つ)
+
+   * -> `std::sync::mpsc::{Sender, Receiver}` チャネルがタプルで返される
+
+2. `Sender::send() Receiver::recv()` 送信、待ち受け
+3. `std::thread::spam` 送受信スレッド２つ実行
+4. `JoinHandler::join()` スレッドの終了を待つ
+
+crossbeamライブラリ
+1. `crossbeam::channel::bounded<T>()` 送受信のチャネルを作る(2つ)
+
+   * -> `crossbeam::channel::{Sender, Receiver}` チャネルがタプルで返される
+
+2. `Sender::send() Receiver::recv()` 送信、待ち受け
+3. `crossbeam::thread::scope` スコープ生成
+4. `crossbeam::thread::scope::spawn` スレッドを２つ作る
+4. `ScopedJoinHandle::join()` スレッドの終了を待つ

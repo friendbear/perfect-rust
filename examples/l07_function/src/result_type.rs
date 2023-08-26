@@ -43,10 +43,12 @@ mod test_result_type {
     }
     #[test]
     fn method_get() {
-        assert_eq!(Ok::<&str, ()>("Ok").unwrap(), "Ok");
-        assert_eq!(Ok::<&str, ()>("Ok").unwrap_or("Err"), "Ok");
-        assert_eq!(Err::<&str, &str>("Err").unwrap_or("Err"), "Err");
-        assert_eq!(Err::<(), &str>("Err").unwrap_err(), "Err");
+        // clippy error
+        // https://rust-lang.github.io/rust-clippy/master/index.html#/unnecessary_literal_unwrap
+        //assert_eq!(Some("Some").unwrap(), "Some");
+        //assert_eq!(Some("Ok").unwrap_or("Err"), "Ok");
+        //assert_eq!(None.unwrap_or("Err"), "Err");
+        //assert_eq!(None.unwrap_err("Err"), "Err");
 
         let div_value = div(10, 0);
         let r = div_value.unwrap_or_else(|e| {

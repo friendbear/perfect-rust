@@ -9,7 +9,7 @@ mod test_branch_if {
         } else if num == 2 {
             println!("num is 2")
         } else {
-            
+            println!("num not 2")
         }
     }
 

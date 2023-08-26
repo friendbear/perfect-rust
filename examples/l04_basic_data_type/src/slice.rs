@@ -15,7 +15,7 @@ mod test_slice {
 
     #[test]
     fn methods_2() {
-        let vec = vec!["abc", "def", "hij", "rst", "uvw", "xyz"];
+        let vec = ["abc", "def", "hij", "rst", "uvw", "xyz"];
         let range = Range { start: 0, end: 6 };
         let slice = &vec[range];
         for chunk in slice.chunks(3) {

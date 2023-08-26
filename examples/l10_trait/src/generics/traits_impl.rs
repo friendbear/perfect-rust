@@ -9,6 +9,7 @@ pub struct CsvReaderImpl<T> {
     pub phantom: PhantomData<T>,
 }
 impl<T> CsvReaderImpl<T> {
+    #[allow(dead_code)]
     pub fn new() -> Self {
         Self {
             phantom: PhantomData,

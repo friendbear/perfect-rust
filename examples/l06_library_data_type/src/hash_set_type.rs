@@ -18,9 +18,7 @@ mod test_hash_set_type {
         }
         if set_a.remove(&100) {
             unreachable!();
-        } else {
         }
-
         set_a.retain(|&k| k.is_negative());
         assert!(set_a.is_empty());
     }
