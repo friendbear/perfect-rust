@@ -9,6 +9,5 @@ use crate::target::Guest;
 /// ```
 pub fn calc_fee_case_01() -> u32 {
     let guest = Guest::new(10, false);
-    let result = guest.calc_fee().unwrap();
-    result
+    guest.calc_fee().unwrap()
 }
