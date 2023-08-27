@@ -61,3 +61,9 @@ crossbeamライブラリ
 >
 > Since there's only two handles, you can just assign them to their own variables.
 > [QA](https://users.rust-lang.org/t/value-moved-std-thread-join/99014?u=friendbear)
+
+### RwLock
+
+> mpsc::channel::<()>(); send()を使って recv()待ちしているスレッドを開始させる
+> JoinHandler::join()で結果を取得する。
+> RwLockはwrite()で書き込みread()で読み込み
