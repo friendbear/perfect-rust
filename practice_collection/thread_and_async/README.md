@@ -53,3 +53,11 @@ crossbeamライブラリ
 3. `crossbeam::thread::scope` スコープ生成
 4. `crossbeam::thread::scope::spawn` スレッドを２つ作る
 4. `ScopedJoinHandle::join()` スレッドの終了を待つ
+
+## 標準ライブラリの排他制御
+
+> [!WARNING]
+> `get` only gives you a reference to the items in a `Vec`, so you can't call methods that require ownership like `join`.
+>
+> Since there's only two handles, you can just assign them to their own variables.
+> [QA](https://users.rust-lang.org/t/value-moved-std-thread-join/99014?u=friendbear)
