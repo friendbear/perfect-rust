@@ -1,16 +1,19 @@
-use core::panic;
-use std::sync::{RwLock, Arc, mpsc};
-use std::sync::mpsc::{Sender, Receiver};
-use std::thread::Builder;
-use std::ops::Div;
 use anyhow::Result;
+use core::panic;
+use std::ops::Div;
+use std::sync::mpsc::{Receiver, Sender};
+use std::sync::{mpsc, Arc, RwLock};
+use std::thread::Builder;
 
 #[derive(Debug)]
 pub struct Calculator;
 impl Calculator {
     /// 計算データを生成する
     #[allow(dead_code)]
-    fn create_data(sender: (Sender<()>, Sender<()>), params: Arc<RwLock<Vec<u64>>>) -> Result<String> {
+    fn create_data(
+        sender: (Sender<()>, Sender<()>),
+        params: Arc<RwLock<Vec<u64>>>,
+    ) -> Result<String> {
         let mut vals = params.write().unwrap(); // write lock
         for num in 1..=100 {
             vals.push(num * 100);
@@ -52,17 +55,24 @@ impl Calculator {
         let (a_sender, a_reciver) = mpsc::channel::<()>();
         let params: Arc<RwLock<Vec<u64>>> = Arc::new(RwLock::new(Vec::<u64>::new()));
 
-        let handle_create = Builder::new().name("create".to_owned()).stack_size(1024 * 3);
+        let handle_create = Builder::new()
+            .name("create".to_owned())
+            .stack_size(1024 * 3);
         let params_1 = Arc::clone(&params);
-        handle_create.spawn(move || Self::create_data((s_sender, a_sender) , params_1).unwrap())?;
-        
+        handle_create.spawn(move || Self::create_data((s_sender, a_sender), params_1).unwrap())?;
+
         let builder = Builder::new().name("sum".to_owned()).stack_size(1024 * 3);
         let params_1 = Arc::clone(&params);
-        let join_handle_sum = builder.spawn(move || Self::calc_sum(s_reciver, params_1).unwrap())?;
-        
+        let join_handle_sum =
+            builder.spawn(move || Self::calc_sum(s_reciver, params_1).unwrap())?;
+
         let builder = Builder::new().name("avg".to_owned()).stack_size(1024 * 3);
         let params_1 = Arc::clone(&params);
-        let join_handle_avg = builder.spawn(move || Self::calc_avg(a_reciver, params_1).unwrap())?;
-        Ok((join_handle_sum.join().unwrap(), join_handle_avg.join().unwrap()))
+        let join_handle_avg =
+            builder.spawn(move || Self::calc_avg(a_reciver, params_1).unwrap())?;
+        Ok((
+            join_handle_sum.join().unwrap(),
+            join_handle_avg.join().unwrap(),
+        ))
     }
 }

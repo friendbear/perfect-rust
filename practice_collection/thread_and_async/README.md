@@ -52,7 +52,7 @@ crossbeamライブラリ
 2. `Sender::send() Receiver::recv()` 送信、待ち受け
 3. `crossbeam::thread::scope` スコープ生成
 4. `crossbeam::thread::scope::spawn` スレッドを２つ作る
-4. `ScopedJoinHandle::join()` スレッドの終了を待つ
+5. `ScopedJoinHandle::join()` スレッドの終了を待つ
 
 ## 標準ライブラリの排他制御
 
@@ -67,3 +67,9 @@ crossbeamライブラリ
 > mpsc::channel::<()>(); send()を使って recv()待ちしているスレッドを開始させる
 > JoinHandler::join()で結果を取得する。
 > RwLockはwrite()で書き込みread()で読み込み
+
+### crossbeamクレートの排他制御
+
+> crossbeam::channel::<()>(); send()を使ってrecv()待ちしているスレッドを開始させる
+> ShradeLock::{ShradeLockReadGuard<T>, ShradeLockWriteGuard<T>} のwrite()で書き込みread()で読み込み
+> ScopedJoinHandler::join().unwarp().unwarp()で結果を取得
