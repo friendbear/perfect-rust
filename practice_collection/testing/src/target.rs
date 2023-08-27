@@ -1,10 +1,10 @@
-use std::fmt::{Display, Formatter, Debug};
+use std::fmt::{Debug, Display, Formatter};
 
 /// サンプルコードで利用するエラー列挙型
 #[allow(dead_code)]
 #[derive(Debug, Eq, PartialEq)]
 pub enum SampleError {
-    Msg(String)
+    Msg(String),
 }
 impl Display for SampleError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -28,7 +28,7 @@ impl Display for Guest {
 impl Guest {
     #[allow(dead_code)]
     pub fn new(age: u32, campaign: bool) -> Self {
-        Self {age, campaign}
+        Self { age, campaign }
     }
 
     /// 鑑賞金額を計算する
@@ -40,7 +40,7 @@ impl Guest {
             13..=17 => 700,
             18..=64 => 100,
             65..=120 => 600,
-            _ => return Err(SampleError::Msg(String::from("Age is incorrect.")))
+            _ => return Err(SampleError::Msg(String::from("Age is incorrect."))),
         };
         Ok(self.calc_campaign(fee))
     }
@@ -60,9 +60,7 @@ mod tests {
 
     #[ignore = "テスト実装前"]
     #[test]
-    fn calc_fee_case00() {
-
-    }
+    fn calc_fee_case00() {}
     #[test]
     fn calc_fee_case01() {
         let guest = Guest::new(10, false);
@@ -107,21 +105,21 @@ mod tests {
         assert_eq!(expected, actual, "{}", &actual);
     }
     #[test]
-    fn calc_campagin_fee_case_01(){
+    fn calc_campagin_fee_case_01() {
         let guest = Guest::new(1000, true);
         let actual = guest.calc_campaign(1000);
         assert_eq!(900, actual);
     }
     #[test]
-    #[should_panic(expected="Age is incorrect.")]
+    #[should_panic(expected = "Age is incorrect.")]
     fn calc_fee_should_panic() {
         let guest = Guest::new(130, true);
         match guest.calc_fee() {
-            Ok(_) => {},
+            Ok(_) => {}
             Err(e) => panic!("{}", e),
         }
     }
-    /// Debug dbg!() 
+    /// Debug dbg!()
     #[test]
     fn use_debug() {
         let guest = Guest::new(0, false);

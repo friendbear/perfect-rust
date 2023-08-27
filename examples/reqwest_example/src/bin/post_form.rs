@@ -8,7 +8,7 @@ struct Person {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let p = Person { 
+    let p = Person {
         first_name: "Foo".into(),
         last_name: "Bar".into(),
     };
@@ -19,9 +19,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .send()
         .await?;
 
-    let t = res
-        .text()
-        .await?;
+    let t = res.text().await?;
 
     println!("{}", t);
     Ok(())

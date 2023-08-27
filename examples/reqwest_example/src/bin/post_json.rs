@@ -11,12 +11,12 @@ struct Person {
 struct PersonResponse {
     data: String,
     method: String,
-    headers: HashMap<String, String>
+    headers: HashMap<String, String>,
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let p = Person { 
+    let p = Person {
         first_name: "Foo".into(),
         last_name: "Bar".into(),
     };
@@ -27,9 +27,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .send()
         .await?;
 
-    let js = res
-        .json::<PersonResponse>()
-        .await?;
+    let js = res.json::<PersonResponse>().await?;
 
     let person: Person = serde_json::from_str(&js.data)?;
     println!("{:#?}", person);
@@ -37,4 +35,3 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Headers: {:#?}", js.headers);
     Ok(())
 }
-

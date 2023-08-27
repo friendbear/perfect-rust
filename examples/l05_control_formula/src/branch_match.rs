@@ -7,14 +7,14 @@ mod test_branch_match {
         match x {
             1 => unreachable!(),
             2 => unreachable!(),
-            _ => {},
+            _ => {}
         }
     }
     #[test]
     fn branch_2() {
         let x = "山田太郎";
         match x {
-            "山田太郎" => {},
+            "山田太郎" => {}
             "鈴木花子" => unreachable!(),
             _ => unreachable!(),
         }
