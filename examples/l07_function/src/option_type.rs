@@ -1,4 +1,3 @@
-
 fn div(v1: i32, v2: i32) -> Option<i32> {
     if v2 == 0 {
         return None;
@@ -51,12 +50,12 @@ mod test_option_type {
 
     #[test]
     fn method_get() {
-//        let k = 2;
+        //        let k = 2;
         assert!(div(10, 5).unwrap() == 2);
         assert!(div(10, 5).unwrap_or(-1) == 2);
         assert!(div(10, 0).unwrap_or(-1) == -1);
-//        assert!(div(10, 5).unwrap_or_else(|| k * -1) == 2);
-//        assert!(div(10, 0).unwrap_or_else(|| k * -1) == -2);
+        //        assert!(div(10, 5).unwrap_or_else(|| k * -1) == 2);
+        //        assert!(div(10, 0).unwrap_or_else(|| k * -1) == -2);
         assert!(div(10, 5).unwrap_or_default() == 2);
         assert!(div(10, 0).unwrap_or_default() == 0);
     }
@@ -73,10 +72,7 @@ mod test_option_type {
             Some(1).map(|some_value| some_value.to_string()),
             Some("1".to_owned())
         );
-        assert_eq!(
-            Some(1).map(closure),
-            Some("1".to_owned())
-        );
+        assert_eq!(Some(1).map(closure), Some("1".to_owned()));
 
         assert_eq!(None.map(|some_value: &str| some_value.len()), None);
         assert_eq!(
@@ -136,7 +132,6 @@ mod test_option_type {
     fn never() {
         //if let None = div_to_string(10, 0) {
         if div_to_string(10, 0).is_none() {
-            
         } else {
             unreachable!();
         }

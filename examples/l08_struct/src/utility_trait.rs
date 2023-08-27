@@ -46,7 +46,7 @@ impl<'a> From<(u32, &'a str, &'a str, &'a str)> for Customer<'a> {
             id: val.0,
             name: val.1,
             address: val.2,
-            email: val.3
+            email: val.3,
         }
     }
 }

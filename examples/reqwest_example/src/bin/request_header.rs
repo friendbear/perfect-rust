@@ -1,7 +1,6 @@
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = reqwest::Client::builder()
-        .build()?;
+    let client = reqwest::Client::builder().build()?;
 
     let res = client
         .post("https://httpbin.org/anything")
@@ -11,9 +10,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .send()
         .await?;
 
-    let t = res
-        .text()
-        .await?;
+    let t = res.text().await?;
 
     println!("{}", t);
     Ok(())

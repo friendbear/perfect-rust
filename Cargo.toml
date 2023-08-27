@@ -11,7 +11,7 @@
 members = [
     "examples/*",
     "practice_collection/*",
-    "iriam-profile/"
+    "iriam_profile/"
     ]
 
 #[dependencies]
