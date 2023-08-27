@@ -1,4 +1,5 @@
 mod basic;
 mod cross_beam;
-mod messaging_std;
+mod exclusive_mutex;
 mod messaging_crossbeam;
+mod messaging_std;

@@ -1,8 +1,8 @@
+use crossbeam::channel::bounded;
+use crossbeam::channel::{Receiver, Sender};
+use crossbeam::thread;
 use serde::Deserialize;
 use serde_json::from_str;
-use crossbeam::channel::bounded;
-use crossbeam::thread;
-use crossbeam::channel::{Receiver, Sender};
 #[derive(Deserialize, Clone)]
 pub struct Station {
     id: u32,
@@ -12,7 +12,7 @@ pub struct Station {
 pub struct Stations(Vec<Station>);
 impl Stations {
     pub fn from_json(json: &str) -> Self {
-        Self (from_str::<Vec<Station>>(json).expect("JSON Parse error."))
+        Self(from_str::<Vec<Station>>(json).expect("JSON Parse error."))
     }
     pub fn search_by_name(&self, name: &str) -> Result<Station, String> {
         self.0
@@ -31,8 +31,13 @@ impl Client {
     /// ### 引数: Clientの受信チャネル c_receiver: Receiver<String>
     #[allow(dead_code)]
     pub fn search_request(p_sender: Sender<String>, c_receiver: Receiver<String>) {
-        let mut station_name =
-            ["錦糸町".to_owned(), "さいたま".to_owned(), "end".to_owned(), "千葉".to_owned()].into_iter();
+        let mut station_name = [
+            "錦糸町".to_owned(),
+            "さいたま".to_owned(),
+            "end".to_owned(),
+            "千葉".to_owned(),
+        ]
+        .into_iter();
         loop {
             let entry_name = station_name.next().unwrap();
             p_sender
@@ -104,5 +109,6 @@ pub fn execute() {
         // 終了待ち
         p_handle.join().unwrap_or_else(|err| panic!("{:?}", err));
         c_handle.join().unwrap_or_else(|err| panic!("{:?}", err));
-    }).unwrap();
+    })
+    .unwrap();
 }
