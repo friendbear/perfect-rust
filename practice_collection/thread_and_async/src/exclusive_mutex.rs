@@ -46,7 +46,7 @@ impl Calculator {
         let clone_param = Arc::clone(&params);
         handles.push(builder.spawn(move || Self::calc_sum(clone_param))?);
         // The handles pop in reverse order, so sum is first
-        let sum = handles.pop().unwrap().join().unwrap(); 
+        let sum = handles.pop().unwrap().join().unwrap();
         let avg = handles.pop().unwrap().join().unwrap();
         Ok((avg, sum))
     }
