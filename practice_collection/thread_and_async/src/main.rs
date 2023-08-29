@@ -1,8 +1,11 @@
+use async_std::task;
+
 mod exclusive_mutex;
 mod exclusive_rwlock;
 mod exclusive_shradelock;
 mod messaging_crossbeam;
 mod messaging_std;
+use thread_and_async::task::task_controller::customer_controller;
 
 fn main() {
     messaging_std::execute();
@@ -15,4 +18,8 @@ fn main() {
         .calc_sum_and_avg_use_sharded_lock()
         .map(|(sum, avg)| println!("avg:{}, sum:{}", avg, sum))
         .unwrap();
+
+    task::block_on(async {
+        customer_controller().await;
+    });
 }

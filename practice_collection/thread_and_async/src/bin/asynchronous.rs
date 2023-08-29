@@ -1,8 +1,8 @@
 use async_std::task::*;
-use num_traits::{NumOps, Num};
+use num_traits::{Num, NumOps};
 
-async fn calc_sum<T>(values: Vec<T>) -> T 
-where 
+async fn calc_sum<T>(values: Vec<T>) -> T
+where
     T: Num + NumOps + Copy,
 {
     let mut total: T = T::zero(); // 初期値をゼロに設定
@@ -12,14 +12,12 @@ where
     total
 }
 pub async fn use_builder() {
-    let task1 = Builder::new().name(String::from("task1")).spawn(async {
-            let sum =calc_sum::<u32>([10, 20, 30, 40, 50].to_vec()).await;
-            sum
-        });
-    let task2 = Builder::new().name(String::from("task2")).spawn(async {
-            let sum = calc_sum::<u32>([100, 200, 300, 400, 500].to_vec()).await;
-            sum
-        });
+    let task1 = Builder::new()
+        .name(String::from("task1"))
+        .spawn(async { calc_sum::<u32>([10, 20, 30, 40, 50].to_vec()).await });
+    let task2 = Builder::new()
+        .name(String::from("task2"))
+        .spawn(async { calc_sum::<u32>([100, 200, 300, 400, 500].to_vec()).await });
     match task1 {
         Ok(result) => println!("{}", result.await),
         Err(error) => panic!("{:?}", error),

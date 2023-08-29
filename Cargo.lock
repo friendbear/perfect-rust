@@ -1906,6 +1906,7 @@ dependencies = [
  "anyhow",
  "async-std",
  "crossbeam",
+ "csv",
  "num-traits",
  "serde",
  "serde_json",
