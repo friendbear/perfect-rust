@@ -1,7 +1,9 @@
 # PostgreSQL
 
 ## Docker
+
 ### run
+
 ```sh
 docker run \
   --name pg \
@@ -33,4 +35,22 @@ erDiagram
         int price
 		int category_id
     }
+```
+
+## Repositoryパターン
+
+```mermaid
+classDiagram
+class Repository~T,PK,UPD~ {
+<<trait>>
+}
+class ProductRepository {
+<<tuple struct>>
+}
+class Product {
+<<struct>>
+<<Entity>>
+}
+ProductRepository ..> Repository~T,PK,UPD~
+ProductRepository ..> Product 
 ```
