@@ -12,5 +12,6 @@ pub struct Product {
     id: i32,
     name: String,
     price: i32,
+    category_id: i32,
     product_category: Option<Vec<ProductCategory>>,
 }

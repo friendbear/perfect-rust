@@ -22,7 +22,8 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
                     row.get("id"),
                     row.get("name"),
                     row.get("price"),
-                    None
+                    row.get("category_id"),
+                    None,
                 )
             );
         }
@@ -41,6 +42,7 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
                     row.get("id"),
                     row.get("name"),
                     row.get("price"),
+                    row.get("category_id"),
                     None
                 ))
             },
@@ -49,8 +51,18 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
             )),
         }
     }
-    fn update_by_id(&mut self, _id: i32) -> Result<u64> {
+    fn update_by_id(&mut self, id: i32) -> Result<u64> {
         todo!()
+    }
+    fn insert(&mut self, row: Product) -> Result<u64> {
+
+        let stmt = self.0.prepare_typed(
+            "INSERT INTO product VALUES(nextval('product_seq'), $1, $2, $3)",
+            &[Type::VARCHAR, Type::INT4, Type::INT4]
+        )?;
+        let count = self.0.execute(&stmt, &[row.get_name(), row.get_price(), row.get_category_id()])?;
+        Ok(count)
+        
     }
 }
 
@@ -99,6 +111,23 @@ mod tests {
             Err(e) => println!("{:?}", e.to_string()),
         }
 
+        Ok(())
+    }
+
+    #[test]
+    fn test_insert() -> anyhow::Result<()> {
+        let mut client = PostgresSampleClient::simple_connect(connection_params())?;
+        let mut transaction = TransactionUtil::start(&mut client, false)?;
+        let mut repository = ProductRepository(&mut transaction);
+        let insert_product = Product::new(0, "商品A".to_owned(), 200, 20, None);
+        let result = repository.insert(insert_product);
+        match result {
+            Ok(count) => {
+                TransactionUtil::commit(transaction)?;
+                assert_eq!(count, 1);
+            }
+            Err(e) => println!("{:?}", e)
+        }
         Ok(())
     }
 }
