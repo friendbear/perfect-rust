@@ -43,14 +43,14 @@ mod tests {
                 println!("simple connect connection ok.");
                 let _ = client.close();
             }
-            Err(err) => println!("{}", err.to_string()),
+            Err(err) => println!("{}", err),
         }
         match super::PostgresSampleClient::config_connect(params.clone()) {
             Ok(client) => {
                 println!("config connect connection ok.");
                 let _ = client.close();
             }
-            Err(err) => println!("{}", err.to_string()),
+            Err(err) => println!("{}", err),
         }
     }
 }

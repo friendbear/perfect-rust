@@ -75,14 +75,13 @@ mod tests {
     use super::*;
 
     fn connection_params() -> ConnectParams {
-        let params = ConnectParams::new(
+        ConnectParams::new(
             "localhost".to_owned(),
             5432,
             "rust_sample".to_owned(),
             "postgres".to_owned(),
             "admin".to_owned()
-        );
-        params
+        )
     }
     #[test]
     fn test_select_all() -> anyhow::Result<()> {
