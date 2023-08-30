@@ -51,7 +51,7 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
             )),
         }
     }
-    fn update_by_id(&mut self, id: i32) -> Result<u64> {
+    fn update_by_id(&mut self, _id: i32) -> Result<u64> {
         todo!()
     }
     fn insert(&mut self, row: Product) -> Result<u64> {

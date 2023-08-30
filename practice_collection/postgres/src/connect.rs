@@ -8,7 +8,7 @@ impl PostgresSampleClient {
     #[allow(dead_code)]
     /// Client構造体のconnect()関数を利用した接続
     pub fn simple_connect(params: ConnectParams) -> anyhow::Result<Client> {
-        let client = Client::connect(&params.connect_string().as_str(), NoTls)?;
+        let client = Client::connect(params.connect_string().as_str(), NoTls)?;
         Ok(client)
     }
 
@@ -17,7 +17,7 @@ impl PostgresSampleClient {
     pub fn config_connect(params: ConnectParams) -> anyhow::Result<Client> {
         let client = Config::new()
             .host(params.get_host())
-            .port(params.get_port().clone())
+            .port(*params.get_port())
             .dbname(params.get_dbname())
             .user(params.get_user())
             .password(params.get_password())

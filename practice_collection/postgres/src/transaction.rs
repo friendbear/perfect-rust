@@ -6,7 +6,7 @@ pub struct TransactionUtil;
 impl TransactionUtil {
     #[allow(dead_code)]
     /// トランザクションを開始する
-    pub fn start<'a>(client: &'a mut Client, read_only: bool) -> Result<Transaction<'a>> {
+    pub fn start(client: &mut Client, read_only: bool) -> Result<Transaction> {
         let transaction = client.build_transaction().read_only(read_only).start()?;
         Ok(transaction)
     }
