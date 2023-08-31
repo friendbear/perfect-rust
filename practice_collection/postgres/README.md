@@ -54,3 +54,15 @@ class Product {
 ProductRepository ..> Repository~T,PK,UPD~
 ProductRepository ..> Product 
 ```
+
+## QA
+
+[[cargo clippy warning]arning: this `MutexGuard` is held across an `await` point](https://users.rust-lang.org/t/cargo-clippy-warning-arning-this-mutexguard-is-held-across-an-await-point/99225)
+
+```rust
+let config;
+{
+    let params = CONNECT_PARAMS.lock().unwrap();  // params lock here.
+    config = params.connect_string().clone();
+} // params drop here.
+```
