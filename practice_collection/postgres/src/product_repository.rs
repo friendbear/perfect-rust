@@ -67,6 +67,7 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
 }
 
 impl ProductRepository<'_, '_> {
+    #[allow(dead_code)]
     fn avg_by_price(&mut self) -> Result<f64> {
         let stmt = r#"
             SELECT CAST(AVG(price) AS FLOAT) as price_avg FROM product
@@ -105,6 +106,7 @@ mod tests {
         println!("{:?}", result);
         Ok(())
     }
+    #[ignore = "Unable to establish a connection with PostgreSQL"]
     #[test]
     fn test_avg_by_price() -> anyhow::Result<()> {
 
