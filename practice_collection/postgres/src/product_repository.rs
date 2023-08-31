@@ -1,14 +1,12 @@
-use postgres::Transaction;
-use postgres::types::Type;
-use anyhow::{Result, Error};
-use crate::repository::Repository;
 use crate::entities::Product;
-
+use crate::repository::Repository;
+use anyhow::{Error, Result};
+use postgres::types::Type;
+use postgres::Transaction;
 
 /// productテーブルにアクセスするRepository
 pub struct ProductRepository<'a, 'b>(pub &'a mut Transaction<'b>);
 impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
-
     fn select_all(&mut self) -> Result<Vec<Product>> {
         let sql = r#"
             SELECT id, name, price, category_id FROM product 
@@ -17,15 +15,13 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
         let rows = self.0.query(sql, &[])?;
         let mut products = Vec::<Product>::new();
         for row in rows {
-            products.push(
-                Product::new(
-                    row.get("id"),
-                    row.get("name"),
-                    row.get("price"),
-                    row.get("category_id"),
-                    None,
-                )
-            );
+            products.push(Product::new(
+                row.get("id"),
+                row.get("name"),
+                row.get("price"),
+                row.get("category_id"),
+                None,
+            ));
         }
         Ok(products)
     }
@@ -37,32 +33,29 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
         let stmt = self.0.prepare_typed(sql, &[Type::INT4])?; // 4byte
         let result = self.0.query_opt(&stmt, &[&id])?;
         match result {
-            Some(row) => {
-                Ok(Product::new(
-                    row.get("id"),
-                    row.get("name"),
-                    row.get("price"),
-                    row.get("category_id"),
-                    None
-                ))
-            },
-            None => Err(Error::msg(
-                format!("Not found id:{}", id)
+            Some(row) => Ok(Product::new(
+                row.get("id"),
+                row.get("name"),
+                row.get("price"),
+                row.get("category_id"),
+                None,
             )),
+            None => Err(Error::msg(format!("Not found id:{}", id))),
         }
     }
     fn update_by_id(&mut self, _id: i32) -> Result<u64> {
         todo!()
     }
     fn insert(&mut self, row: Product) -> Result<u64> {
-
         let stmt = self.0.prepare_typed(
             "INSERT INTO product VALUES(nextval('product_seq'), $1, $2, $3)",
-            &[Type::VARCHAR, Type::INT4, Type::INT4]
+            &[Type::VARCHAR, Type::INT4, Type::INT4],
         )?;
-        let count = self.0.execute(&stmt, &[row.get_name(), row.get_price(), row.get_category_id()])?;
+        let count = self.0.execute(
+            &stmt,
+            &[row.get_name(), row.get_price(), row.get_category_id()],
+        )?;
         Ok(count)
-        
     }
 }
 
@@ -73,7 +66,7 @@ impl ProductRepository<'_, '_> {
             SELECT CAST(AVG(price) AS FLOAT) as price_avg FROM product
         "#;
         let row = self.0.query_one(stmt, &[])?;
-        let avg: f64= row.get(0);
+        let avg: f64 = row.get(0);
         Ok(avg)
     }
 }
@@ -81,8 +74,8 @@ impl ProductRepository<'_, '_> {
 #[cfg(test)]
 mod tests {
 
-    use crate::{params::ConnectParams, transaction::TransactionUtil};
     use crate::connect::PostgresSampleClient;
+    use crate::{params::ConnectParams, transaction::TransactionUtil};
 
     use super::*;
 
@@ -92,13 +85,12 @@ mod tests {
             5432,
             "rust_sample".to_owned(),
             "postgres".to_owned(),
-            "admin".to_owned()
+            "admin".to_owned(),
         )
     }
     #[ignore = "Unable to establish a connection with PostgreSQL"]
     #[test]
     fn test_select_all() -> anyhow::Result<()> {
-
         let mut client = PostgresSampleClient::config_connect(connection_params())?;
         let mut transaction = TransactionUtil::start(&mut client, true)?;
         let mut repository = ProductRepository(&mut transaction);
@@ -109,7 +101,6 @@ mod tests {
     #[ignore = "Unable to establish a connection with PostgreSQL"]
     #[test]
     fn test_avg_by_price() -> anyhow::Result<()> {
-
         let mut client = PostgresSampleClient::config_connect(connection_params())?;
         let mut transaction = TransactionUtil::start(&mut client, true)?;
         let mut repository = ProductRepository(&mut transaction);
@@ -117,7 +108,6 @@ mod tests {
         println!("{:?}", result);
         Ok(())
     }
-
 
     #[ignore = "Unable to establish a connection with PostgreSQL"]
     #[test]
@@ -152,7 +142,7 @@ mod tests {
                 TransactionUtil::commit(transaction)?;
                 assert_eq!(count, 1);
             }
-            Err(e) => println!("{:?}", e)
+            Err(e) => println!("{:?}", e),
         }
         Ok(())
     }

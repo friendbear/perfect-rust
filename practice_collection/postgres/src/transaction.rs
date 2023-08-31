@@ -1,5 +1,5 @@
-use postgres::{Client, Transaction};
 use anyhow::Result;
+use postgres::{Client, Transaction};
 
 /// トランザクション制御
 pub struct TransactionUtil;

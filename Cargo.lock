@@ -1562,11 +1562,15 @@ name = "postgres"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "async-trait",
  "lombok",
  "once_cell",
  "postgres 0.19.7",
+ "proc-macro2",
  "r2d2",
  "r2d2_postgres",
+ "tokio",
+ "tokio-postgres",
 ]
 
 [[package]]

@@ -1,11 +1,11 @@
-use postgres::Transaction;
-use postgres::types::Type;
-use anyhow::{Result, Error};
 use crate::entities::{Product, ProductCategory};
+use anyhow::{Error, Result};
+use postgres::types::Type;
+use postgres::Transaction;
 
 #[allow(dead_code)]
 pub struct ProductCategoryRepository<'a, 'b>(pub &'a mut Transaction<'b>);
-impl ProductCategoryRepository<'_,'_> {
+impl ProductCategoryRepository<'_, '_> {
     #[allow(dead_code)]
     pub fn select_by_id_join_product(&mut self, id: i32) -> Result<ProductCategory> {
         let sql = r#"
@@ -26,7 +26,13 @@ impl ProductCategoryRepository<'_,'_> {
                 product_category.set_id(row.get("idc_id"));
                 product_category.set_name(row.get("c_name"));
             }
-            products.push(Product::new(row.get("id"), row.get("name"), row.get("price"), row.get("category_id"), None));
+            products.push(Product::new(
+                row.get("id"),
+                row.get("name"),
+                row.get("price"),
+                row.get("category_id"),
+                None,
+            ));
         }
         product_category.set_products(Some(products));
         Ok(product_category)

@@ -1,7 +1,7 @@
-use r2d2_postgres::{postgres::NoTls, PostgresConnectionManager};
-use r2d2::PooledConnection;
-use anyhow::Result;
 use crate::pool_1::SAMPLE_POOL_1;
+use anyhow::Result;
+use r2d2::PooledConnection;
+use r2d2_postgres::{postgres::NoTls, PostgresConnectionManager};
 /// ConnectionManager
 pub struct SamplePoolManager;
 impl SamplePoolManager {
@@ -19,10 +19,10 @@ impl SamplePoolManager {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::thread;
+    use crate::product_repository::ProductRepository;
     use crate::repository::Repository;
     use crate::transaction::TransactionUtil;
-    use crate::product_repository::ProductRepository;
+    use std::thread;
 
     #[ignore = "Not connection database"]
     #[test]

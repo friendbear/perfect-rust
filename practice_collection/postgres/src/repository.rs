@@ -1,6 +1,6 @@
 use anyhow::Result;
 
-pub trait Repository<T,PK, UPD> {
+pub trait Repository<T, PK, UPD> {
     fn select_all(&mut self) -> Result<Vec<T>> {
         todo!()
     }

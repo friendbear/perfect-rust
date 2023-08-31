@@ -1,5 +1,5 @@
-use postgres::{Client, NoTls, Config};
 use crate::params::ConnectParams;
+use postgres::{Client, Config, NoTls};
 
 /// データベース接続機能の実装
 #[allow(dead_code)]
@@ -36,7 +36,7 @@ mod tests {
             5432,
             "rust_sample".to_owned(),
             "postgres".to_owned(),
-            "admin".to_owned()
+            "admin".to_owned(),
         );
         match super::PostgresSampleClient::simple_connect(params.clone()) {
             Ok(client) => {
