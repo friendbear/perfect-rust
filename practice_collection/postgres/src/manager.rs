@@ -24,14 +24,14 @@ mod tests {
     use crate::transaction::TransactionUtil;
     use crate::product_repository::ProductRepository;
 
+    #[ignore = "Not connection database"]
     #[test]
     fn test_use_connection_pool() -> Result<()> {
         let handle = thread::spawn(|| {
             let mut client = SamplePoolManager::client()?;
             let mut transaction = TransactionUtil::start(&mut client, true)?;
             let mut repository = ProductRepository(&mut transaction);
-            let product = repository.select_by_id(1);
-            product
+            repository.select_by_id(1)
         });
         let product = handle.join().unwrap().unwrap();
         dbg!(&product);
