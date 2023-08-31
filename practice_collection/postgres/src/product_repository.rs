@@ -66,6 +66,18 @@ impl Repository<Product, i32, u64> for ProductRepository<'_, '_> {
     }
 }
 
+impl ProductRepository<'_, '_> {
+    #[allow(dead_code)]
+    fn avg_by_price(&mut self) -> Result<f64> {
+        let stmt = r#"
+            SELECT CAST(AVG(price) AS FLOAT) as price_avg FROM product
+        "#;
+        let row = self.0.query_one(stmt, &[])?;
+        let avg: f64= row.get(0);
+        Ok(avg)
+    }
+}
+
 #[cfg(test)]
 mod tests {
 
@@ -94,6 +106,18 @@ mod tests {
         println!("{:?}", result);
         Ok(())
     }
+    #[ignore = "Unable to establish a connection with PostgreSQL"]
+    #[test]
+    fn test_avg_by_price() -> anyhow::Result<()> {
+
+        let mut client = PostgresSampleClient::config_connect(connection_params())?;
+        let mut transaction = TransactionUtil::start(&mut client, true)?;
+        let mut repository = ProductRepository(&mut transaction);
+        let result = repository.avg_by_price()?;
+        println!("{:?}", result);
+        Ok(())
+    }
+
 
     #[ignore = "Unable to establish a connection with PostgreSQL"]
     #[test]
