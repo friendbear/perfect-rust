@@ -41,6 +41,7 @@ impl AsyncSimpleClient {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[ignore = "Need database access."]
     #[tokio::test]
     async fn test_connection() -> Result<()> {
         let _connect = AsyncSimpleClient::connect().await?;
