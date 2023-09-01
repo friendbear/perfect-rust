@@ -41,7 +41,7 @@ pub mod tests {
     use crate::tokio_transaction::AsyncTransactionUtil;
     use anyhow::Result;
 
-    //#[ignore = "Need database access"]
+    #[ignore = "Need database access"]
     #[tokio::test]
     async fn test_select_all() -> Result<()> {
         let mut client = AsyncSimpleClient::connect().await?;
