@@ -16,8 +16,10 @@ impl<'a, 'b> ProductRepository<'a, 'b> {
 #[async_trait]
 impl AsyncRepository<Product, i32, bool> for ProductRepository<'_, '_> {
     async fn select_all(&mut self) -> Result<Vec<Product>> {
-        let sql = "SELECT id, name, price, category_id FROM product";
-        let rows = self.transaction.query(sql, &[]).await?;
+        use crate::sql::get_sql;
+        let sql = get_sql("product", "select_all").await?;
+        //let sql = "SELECT id, name, price, category_id FROM product";
+        let rows = self.transaction.query(sql.as_str(), &[]).await?;
         let mut products = Vec::<Product>::new();
         for row in rows {
             products.push(Product::new(
@@ -39,7 +41,7 @@ pub mod tests {
     use crate::tokio_transaction::AsyncTransactionUtil;
     use anyhow::Result;
 
-    #[ignore = "Need database access"]
+    //#[ignore = "Need database access"]
     #[tokio::test]
     async fn test_select_all() -> Result<()> {
         let mut client = AsyncSimpleClient::connect().await?;

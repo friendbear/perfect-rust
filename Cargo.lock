@@ -1174,6 +1174,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4668fb0ea861c1df094127ac5f1da3409a82116a4ba74fca2e58ef927159bb3"
 
 [[package]]
+name = "linked-hash-map"
+version = "0.5.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0717cef1bc8b636c6e1c1bbdefc09e6322da8a9321966e8928ef80d20f7f770f"
+
+[[package]]
 name = "linux-raw-sys"
 version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1559,22 +1565,6 @@ dependencies = [
 
 [[package]]
 name = "postgres"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "lombok",
- "once_cell",
- "postgres 0.19.7",
- "proc-macro2",
- "r2d2",
- "r2d2_postgres",
- "tokio",
- "tokio-postgres",
-]
-
-[[package]]
-name = "postgres"
 version = "0.19.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7915b33ed60abc46040cbcaa25ffa1c7ec240668e0477c4f3070786f5916d451"
@@ -1614,6 +1604,23 @@ dependencies = [
  "bytes",
  "fallible-iterator",
  "postgres-protocol",
+]
+
+[[package]]
+name = "postgresql"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "lombok",
+ "once_cell",
+ "postgres",
+ "proc-macro2",
+ "r2d2",
+ "r2d2_postgres",
+ "tokio",
+ "tokio-postgres",
+ "yaml-rust",
 ]
 
 [[package]]
@@ -1682,7 +1689,7 @@ version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7029c56be658cb54f321e0bee597810ee16796b735fa2559d7056bf06b12230b"
 dependencies = [
- "postgres 0.19.7",
+ "postgres",
  "r2d2",
 ]
 
@@ -2618,6 +2625,15 @@ checksum = "524e57b2c537c0f9b1e69f1965311ec12182b4122e45035b1508cd24d2adadb1"
 dependencies = [
  "cfg-if",
  "windows-sys",
+]
+
+[[package]]
+name = "yaml-rust"
+version = "0.4.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "56c1936c4cc7a1c9ab21a1ebb602eb942ba868cbd44a99cb7cdc5892335e1c85"
+dependencies = [
+ "linked-hash-map",
 ]
 
 [[package]]

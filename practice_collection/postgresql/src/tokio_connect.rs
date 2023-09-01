@@ -20,19 +20,31 @@ pub struct AsyncSimpleClient;
 impl AsyncSimpleClient {
     #[allow(dead_code)]
     pub async fn connect() -> Result<Client> {
+        //let config = CONNECT_PARAMS.lock().unwrap().connect_string().clone();
         let config;
         {
             let params = CONNECT_PARAMS.lock().unwrap();  // params lock here.
             config = params.connect_string().clone();
         } // params drop here.
-        //let config = CONNECT_PARAMS.lock().unwrap().connect_string().clone();
+
         let (client, connection) = tokio_postgres::connect(config.as_str(), NoTls).await?;
-        let handle = tokio::spawn(async move {
+        tokio::spawn(async move {
             if let Err(e) = connection.await {
                 eprintln!("Connection error: {}", e);
             }
         });
-        handle.await.expect("Async task panicked");
+        //handle.await.expect("Async task panicked");
         Ok(client)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[tokio::test]
+    async fn test_connection() -> Result<()> {
+        let _connect = AsyncSimpleClient::connect().await?;
+        Ok(())
+
     }
 }
