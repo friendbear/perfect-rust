@@ -10,7 +10,9 @@ pub struct ConnectParams {
 }
 impl ConnectParams {
     pub fn connect_string(&self) -> String {
-        format!("host={} port={} dbname={} user={} password={}",
-            self.host, self.port, self.dbname, self.user, self.password)
+        format!(
+            "host={} port={} dbname={} user={} password={}",
+            self.host, self.port, self.dbname, self.user, self.password
+        )
     }
 }

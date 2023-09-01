@@ -7,7 +7,6 @@ use std::io::BufWriter;
 use std::marker::PhantomData;
 
 /// Serialize CSV
-
 pub struct SampleWriter<T> {
     phantom: PhantomData<T>,
 }
