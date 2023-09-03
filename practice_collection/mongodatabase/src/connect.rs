@@ -26,7 +26,8 @@ mod tests {
 
     #[tokio::test]
     async fn test_new() -> Result<()> {
-        let sample_client = SampleMongoClient::new("mongodb://localhost:27017", "rust_sample").await;
+        let sample_client =
+            SampleMongoClient::new("mongodb://localhost:27017", "rust_sample").await;
         match sample_client {
             Ok(client) => {
                 println!("{:?}", client.get_client());
