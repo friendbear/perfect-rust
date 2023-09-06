@@ -6,7 +6,7 @@
 cargo install sea-orm-cli
 ```
 
-### How to use.
+### How to use
 
 default database url .env
 
