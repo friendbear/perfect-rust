@@ -84,6 +84,7 @@ mod tests {
     use crate::pool::SamplePool;
     use sea_orm::TransactionTrait;
 
+    #[ignore = "Need Database connection."]
     #[tokio::test]
     async fn test_select_all() -> Result<()> {
         env_logger::builder()
@@ -97,6 +98,7 @@ mod tests {
         }
         Ok(())
     }
+    #[ignore = "Need Database connection."]
     #[tokio::test]
     async fn test_select_by_id() -> Result<()> {
         env_logger::builder()
@@ -108,6 +110,7 @@ mod tests {
         println!("{row:?}");
         Ok(())
     }
+    #[ignore = "Need Database connection."]
     #[tokio::test]
     async fn test_select_by_like_name() -> Result<()> {
         env_logger::builder()
@@ -123,6 +126,7 @@ mod tests {
         }
         Ok(())
     }
+    #[ignore = "Need Database connection."]
     #[tokio::test]
     async fn test_insert() -> Result<()> {
         env_logger::builder()
@@ -141,6 +145,7 @@ mod tests {
         db.rollback().await?;
         Ok(())
     }
+    #[ignore = "Need Database connection."]
     #[tokio::test]
     async fn test_update_by_id() -> Result<()> {
         env_logger::builder()
@@ -159,7 +164,7 @@ mod tests {
         db.commit().await?;
         Ok(())
     }
-
+    #[ignore = "Need Database connection."]
     #[tokio::test]
     async fn test_delete_by_id() -> Result<()> {
         env_logger::builder()
