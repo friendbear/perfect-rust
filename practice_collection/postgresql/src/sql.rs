@@ -1,12 +1,11 @@
+use anyhow::{Error, Result};
 use once_cell::sync::Lazy;
-use yaml_rust::{Yaml, YamlLoader};
-use std::sync::Mutex;
-use anyhow::{Result,Error};
 use std::env;
+use std::sync::Mutex;
+use yaml_rust::{Yaml, YamlLoader};
 
-static SQLS: Lazy<Mutex<Yaml>> = Lazy::new(||{
-    init_sqls().unwrap_or_else(|err| panic!("{:?}", err))
-});
+static SQLS: Lazy<Mutex<Yaml>> =
+    Lazy::new(|| init_sqls().unwrap_or_else(|err| panic!("{:?}", err)));
 
 fn init_sqls() -> Result<Mutex<Yaml>> {
     let current = concat!(env!("CARGO_MANIFEST_DIR"), "/resources/sql.yaml");

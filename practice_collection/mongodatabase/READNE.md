@@ -1,6 +1,5 @@
 # MongoDB
 
-
 起動
 
 ```sh

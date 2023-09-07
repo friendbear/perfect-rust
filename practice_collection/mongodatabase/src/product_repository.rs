@@ -4,9 +4,9 @@ use crate::repository::Repository;
 use anyhow::{Error, Result};
 use async_trait::async_trait;
 use futures_util::StreamExt;
+use mongodb::bson::doc;
 use mongodb::options::UpdateModifications;
 use mongodb::Collection;
-use mongodb::bson::doc;
 
 pub struct ProductRepository {
     collection: Collection<Product>,
@@ -16,7 +16,7 @@ impl ProductRepository {
     #[allow(dead_code)]
     pub fn new(client: SampleMongoClient, collection_name: &str) -> Self {
         Self {
-            collection: client.get_database().collection(collection_name)
+            collection: client.get_database().collection(collection_name),
         }
     }
 }
@@ -86,7 +86,7 @@ impl Repository<Product, i32, bool> for ProductRepository {
                     Ok(false)
                 }
             })?
-        }
+    }
     async fn count_documents(&self) -> Result<u64> {
         self.count_documents().await
     }
