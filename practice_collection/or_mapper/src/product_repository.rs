@@ -1,10 +1,10 @@
-use crate::modules::product::Column;
-use crate::modules::product::Entity as Product;
-use crate::modules::product::Model;
+use std::vec;
+
+use crate::modules::product::{Column, Entity as Product, Model};
 use crate::repository::Repository;
 use anyhow::{Error, Result};
 use async_trait::async_trait;
-use sea_orm::ActiveModelTrait;
+use sea_orm::{ActiveModelTrait, Statement, ConnectionTrait};
 use sea_orm::ActiveValue::Set; // {NotSet, Set, Unchanged};
 use sea_orm::ColumnTrait;
 use sea_orm::DatabaseTransaction;
@@ -78,6 +78,43 @@ impl Repository for ProductRepository {
     }
 }
 
+use crate::modules::prelude::*;
+use crate::modules::{product, product_category};
+impl ProductRepository {
+    #[allow(dead_code)]
+    async fn select_by_id_join_productt_category(
+        &self,
+        db: &DatabaseTransaction,
+        id: i32,
+    ) -> Result<Vec<(product::Model, Option<product_category::Model>)>> {
+        let product_and_category = Product::find_by_id(id)
+            .find_also_related(ProductCategory)
+            .all(db)
+            .await?;
+        Ok(product_and_category)
+    }
+    #[allow(dead_code)]
+    async fn select_by_id_stmt(&self, db: &DatabaseTransaction, id:i32) -> Result<Model> {
+        let stmt = Statement::from_sql_and_values(
+            sea_orm::DatabaseBackend::Postgres,
+            r#"SELECT id, name, price, category_id FROM product WHERE id = $1"#,
+            vec![id.into()]
+        );
+        let row = Product::find().from_raw_sql(stmt).one(db).await?;
+        row.ok_or(Error::msg("Not found."))
+    }
+    #[allow(dead_code)]
+    async fn insert_stmt(&self, db: &DatabaseTransaction, row: Model) -> Result<u64> {
+        let stmt = Statement::from_sql_and_values(
+            sea_orm::DatabaseBackend::Postgres,
+            r#"INSERT INTO product(name, category_id) VALUES($1, $2)"#,
+            vec![row.name.into(), row.category_id.into()]
+        );
+        let result = db.execute(stmt).await?;
+        Ok(result.rows_affected())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -93,6 +130,22 @@ mod tests {
         let pool = SamplePool::get().await?;
         let db = pool.begin().await?;
         let rows = ProductRepository::new().select_all(&db).await?;
+        for row in rows {
+            println!("{row:?}");
+        }
+        Ok(())
+    }
+    #[ignore = "Need Database connection."]
+    #[tokio::test]
+    async fn test_select_by_id_join_product_category() -> Result<()> {
+        env_logger::builder()
+            .filter_level(log::LevelFilter::Debug)
+            .init();
+        let pool = SamplePool::get().await?;
+        let db = pool.begin().await?;
+        let rows = ProductRepository::new()
+            .select_by_id_join_productt_category(&db, 1)
+            .await?;
         for row in rows {
             println!("{row:?}");
         }

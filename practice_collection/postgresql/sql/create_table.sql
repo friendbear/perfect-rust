@@ -5,10 +5,10 @@ CREATE TABLE product_category (
 );
 
 CREATE TABLE product (
-	id INTEGER PRIMARY KEY,
-	name VARCHAR ( 250 ) NOT NULL,
+    id INTEGER PRIMARY KEY,
+    name VARCHAR (250) NOT NULL,
     price INTEGER NOT NULL,
-    category_id INTEGER
+    category_id INTEGER REFERENCES product_category(id)
 );
 
 CREATE SEQUENCE product_seq
