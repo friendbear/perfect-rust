@@ -1,0 +1,17 @@
+{% extends "pages/layout.html" %}
+{% block title %}easy calcurator{% endblock title %}
+{% block content %}
+<div class="container">
+    <br/>
+    <div claas="row justify-content-md-center">
+        <div class="col-md-auto">
+            {% if result %} {# Contextにresultが存在するか？#}
+            <h3>Result = {{result}} </h3> {# resultをHTMLに出力する #}
+            {% endif %}
+            <form action="/app/samples/calc_form" method="GET">
+                <button type="submit" class="btn btn-primary mb-3">back</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
