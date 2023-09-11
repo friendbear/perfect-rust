@@ -41,6 +41,15 @@ fn set_configure(cfg: &mut ServiceConfig) -> () {
                 .route(web::get().to(tera_handler::calc_get))
                 .route(web::post().to(tera_handler::calc_post))
             )
+            .service(
+                resource("/calc")
+                .route(web::get().to(handlers::handler_func::calc_add_from_query))
+                .route(web::post().to(handlers::handler_func::calc_add_from_form))
+            )
+            .service(
+                resource("/calc-json")
+                .route(web::post().to(handlers::handler_func::calc_add_from_json))
+            )
     );
 }
 
