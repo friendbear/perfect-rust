@@ -14,20 +14,20 @@ async fn main() -> Result<(), std::io::Error> {
     let tera = Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/views/**/*")).unwrap();
     HttpServer::new(move || {
         App::new()
-        .wrap(middleware::Logger::default())
-        .app_data(web::Data::new(tera.clone()))
-        .service(
-            web::scope("/app")
-                .service(web::scope("/v1").service(web::resource("/ping").to(ping)))
-                .configure(set_configure),
-        )
+            .wrap(middleware::Logger::default())
+            .app_data(web::Data::new(tera.clone()))
+            .service(
+                web::scope("/app")
+                    .service(web::scope("/v1").service(web::resource("/ping").to(ping)))
+                    .configure(set_configure),
+            )
     })
     .bind("127.0.0.1:8081")?
     //.workers(2) // default Number of physical cores
     .run()
     .await
 }
-fn set_configure(cfg: &mut ServiceConfig) -> () {
+fn set_configure(cfg: &mut ServiceConfig) {
     cfg.service(
         web::scope("/examples")
             .service(handlers::handler_func::calc_add)
@@ -38,18 +38,18 @@ fn set_configure(cfg: &mut ServiceConfig) -> () {
             )
             .service(
                 resource("/calc_form")
-                .route(web::get().to(tera_handler::calc_get))
-                .route(web::post().to(tera_handler::calc_post))
+                    .route(web::get().to(tera_handler::calc_get))
+                    .route(web::post().to(tera_handler::calc_post)),
             )
             .service(
                 resource("/calc")
-                .route(web::get().to(handlers::handler_func::calc_add_from_query))
-                .route(web::post().to(handlers::handler_func::calc_add_from_form))
+                    .route(web::get().to(handlers::handler_func::calc_add_from_query))
+                    .route(web::post().to(handlers::handler_func::calc_add_from_form)),
             )
             .service(
                 resource("/calc-json")
-                .route(web::post().to(handlers::handler_func::calc_add_from_json))
-            )
+                    .route(web::post().to(handlers::handler_func::calc_add_from_json)),
+            ),
     );
 }
 
