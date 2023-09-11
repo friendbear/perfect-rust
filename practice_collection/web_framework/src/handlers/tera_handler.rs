@@ -76,7 +76,7 @@ mod tests {
     ) -> impl actix_web::dev::Service<actix_http::Request, Response = ServiceResponse, Error = Error>
     {
         let tera = Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/views/**/*")).unwrap();
-        let test_service = test::init_service(
+        test::init_service(
             App::new()
                 //.wrap(middleware::Logger::default())
                 .app_data(web::Data::new(tera.clone()))
@@ -88,8 +88,7 @@ mod tests {
                     ),
                 ),
         )
-        .await;
-        test_service
+        .await
     }
     #[actix_web::test]
     async fn calc_get() {
