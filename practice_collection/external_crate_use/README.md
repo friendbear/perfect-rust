@@ -9,3 +9,10 @@
 - JWT認証
 - Actix Webのエラーハンドリング機能
 - アーキテクチャや内部実装
+
+## 証明書と秘密鍵
+
+```sh
+$ mkcert local
+$ mkcert -install
+```

@@ -22,7 +22,7 @@ async fn main() -> Result<(), std::io::Error> {
                     .configure(set_configure),
             )
     })
-    .bind("127.0.0.1:8081")?
+    .bind("127.0.0.1:8082")?
     //.workers(2) // default Number of physical cores
     .run()
     .await
