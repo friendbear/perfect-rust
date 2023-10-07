@@ -11,7 +11,7 @@ async-trait = "0.1.73"
 bson = "2.7.0"
 futures-util = "0.3.28"
 lombok = "0.4.0"
-mongodb = "2.6.1"
+mongodb = "2.7.0"
 proc-macro2 = "1.0.66"
 serde = { version = "1.0.188", features = ["derive"] }
 tokio = { version = "1.32.0", features = ["full"] }
