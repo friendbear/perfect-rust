@@ -7,25 +7,39 @@ use actix_web::{
 use handlers::tera_handler;
 use tera::Tera;
 
-#[actix_web::main]
-async fn main() -> Result<(), std::io::Error> {
+fn main() -> Result<(), std::io::Error> {
+
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
+    let _guard = sentry::init((
+        "https://61dd2902fb2543519de1e8fd8a8cc0c4@o1161973.ingest.sentry.io/6248670",
+        sentry::ClientOptions {
+            release: sentry::release_name!(),
+            ..Default::default()
+        },
+    ));
+    std::env::set_var("RUST_BACKTRACE", "1");
 
     let tera = Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/views/**/*")).unwrap();
-    HttpServer::new(move || {
-        App::new()
-            .wrap(middleware::Logger::default())
-            .app_data(web::Data::new(tera.clone()))
-            .service(
-                web::scope("/app")
-                    .service(web::scope("/v1").service(web::resource("/ping").to(ping)))
-                    .configure(set_configure),
-            )
-    })
-    .bind("0.0.0.0:8082")?
-    //.workers(2) // default Number of physical cores
-    .run()
-    .await
+
+    actix_web::rt::System::new().block_on(async {
+        HttpServer::new(move || {
+            App::new()
+                .wrap(middleware::Logger::default())
+                .wrap(sentry_actix::Sentry::new())
+                .app_data(web::Data::new(tera.clone()))
+                .service(
+                    web::scope("/app")
+                        .service(web::scope("/v1").service(web::resource("/ping").to(ping)))
+                        .configure(set_configure),
+                )
+        })
+        .bind("0.0.0.0:8082")?
+        //.workers(2) // default Number of physical cores
+        .run()
+        .await
+    })?;
+
+    Ok(())
 }
 fn set_configure(cfg: &mut ServiceConfig) {
     cfg.service(
