@@ -1,10 +1,20 @@
-use std::fmt::{Display, Error, Formatter};
+
 type S = LiveStreamer;
 #[derive(Debug, Default, Clone)]
 struct LiveStreamer {
     name: Option<String>,
     mark: Option<String>,
     x_name: Option<String>,
+}
+impl LiveStreamer {
+    fn _printer(&self) {
+        println!(
+            "{}{}{} Liked♡",
+            self.name.clone().unwrap_or_default(),
+            self.mark.clone().unwrap_or_default(),
+            self.x_name.clone().unwrap_or_default()
+        )
+    }
 }
 struct Builder(LiveStreamer);
 fn main() {
@@ -18,15 +28,16 @@ fn main() {
         Builder::new().with_mark("📘📗🌼").build(),
         Builder::new().with_mark("🐈‍⬛💜.*･").build(),
     ];
-    let printer = |s: S| {
+    let printer = |s: &S| {
         println!(
             "{} Liked♡",
-            s.name.unwrap_or_default()
-                + &s.mark.unwrap_or_default()
-                + &s.x_name.unwrap_or_default()
+            s.name.clone().unwrap_or_default()
+                + s.mark.clone().unwrap_or_default().as_str()
+                + s.x_name.clone().unwrap_or_default().as_str()
         )
     };
-    streamer.into_iter().for_each(printer);
+    streamer.iter().for_each(|s| printer(s));
+    streamer.into_iter().for_each(|s| printer(&s));
 }
 impl Builder {
     fn new() -> Self {
@@ -34,36 +45,18 @@ impl Builder {
     }
     fn with_name(&self, name: &str) -> Self {
         Builder(LiveStreamer {
-            name: Some(name.to_string()),
+            name: Some(name.to_string().clone()),
             ..self.0.clone()
         })
     }
     fn with_mark(&self, mark: &str) -> Self {
         Builder(LiveStreamer {
-            mark: Some(mark.to_string()),
+            mark: Some(mark.to_string().clone()),
             ..self.0.clone()
         })
     }
     fn build(self) -> LiveStreamer {
         self.0
-    }
-}
-impl LiveStreamer {
-    #[allow(dead_code)]
-    fn new(name: Option<String>, mark: Option<String>, x_name: Option<String>) -> Self {
-        Self { name, mark, x_name }
-    }
-}
-impl Display for LiveStreamer {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
-        write!(
-            f,
-            "name: {}, mark: {} x: {}",
-            self.name.as_ref().unwrap(),
-            self.mark.as_ref().unwrap(),
-            self.x_name.as_ref().unwrap()
-        )?;
-        Ok(())
     }
 }
 
@@ -86,4 +79,65 @@ fn str_sort() {
 #[test]
 fn str_sort_test() {
     str_sort();
+}
+
+#[test]
+fn test_loop() {
+    for i in 2 as i128.. {
+        println!("{i}");
+        if i >= i16::MAX.into() {
+            break;
+        }
+    }
+}
+
+#[test]
+fn test_tuple() {
+
+    #[derive(Debug)]
+    struct Tuple3<T> {
+        a: T,
+        b: T,
+        c: T
+    }
+    #[derive(Debug)]
+    struct Tuple3Ver2<T>(T,T,T);
+
+    impl<T> From<(T, T, T)> for Tuple3<T> {
+        fn from(value: (T, T, T)) -> Self {
+            Self {
+                a: value.0,
+                b: value.1,
+                c: value.2
+            }
+        }
+    }
+
+
+    let _tuple_mix_type = ("hello", 5, 'c');
+    let tuple_one_type = ("hello", "hello", "c");
+
+    let three_tuple = tuple_one_type.clone();
+
+    let instance = Tuple3::<&str>::from(three_tuple);
+    println!("{:?}", instance)
+
+}
+
+#[test]
+fn test_trait_and_struct_01() {
+    trait MyTrait<AT, T> {
+        fn test(_: T) -> AT;
+    }
+    struct MyStruct(i32, i32);
+
+    impl MyTrait<i32, MyStruct> for MyStruct {
+        fn test(v: MyStruct) -> i32 {
+            v.0 + v.1
+        }
+    }
+
+    let my_instance = MyStruct(10, 10);
+    let ans = <MyStruct as MyTrait<i32, MyStruct>>::test(my_instance);
+    assert_eq!(ans, 20);
 }
