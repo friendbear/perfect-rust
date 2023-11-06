@@ -13,5 +13,5 @@ dotenv = "0.15.0"
 env_logger = "0.10.0"
 log = "0.4.20"
 mime = "0.3.17"
-serde = { version = "1.0.0", features = ["derive"] }
+serde = { version = "1.0.190", features = ["derive"] }
 tera = "1.19.1"
