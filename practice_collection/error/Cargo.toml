@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.75"
 num-traits = "0.2.16"
-thiserror = "1.0.48"
+thiserror = "1.0.50"
