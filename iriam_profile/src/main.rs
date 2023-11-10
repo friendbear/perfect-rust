@@ -127,17 +127,18 @@ fn test_tuple() {
 #[test]
 fn test_trait_and_struct_01() {
     trait MyTrait<AT, T> {
-        fn test(_: T) -> AT;
+        fn hello_world(_: T) -> AT;
     }
-    struct MyStruct(i32, i32);
+    struct MyStruct(String, String);
 
-    impl MyTrait<i32, MyStruct> for MyStruct {
-        fn test(v: MyStruct) -> i32 {
-            v.0 + v.1
+    impl MyTrait<String, MyStruct> for MyStruct {
+        fn hello_world(v: MyStruct) -> String {
+            format!("My name is {} {}", v.0, v.1)
         }
     }
 
-    let my_instance = MyStruct(10, 10);
-    let ans = <MyStruct as MyTrait<i32, MyStruct>>::test(my_instance);
-    assert_eq!(ans, 20);
+    let my_instance = MyStruct("T".to_owned(), "Kumagai".to_owned());
+    let ans = <MyStruct as MyTrait<String, MyStruct>>::hello_world(my_instance);
+    println!("{ans}");
+    assert_eq!(ans, "My name is T Kumagai".to_string());
 }
