@@ -96,9 +96,9 @@ fn test_tuple() {
 
     #[derive(Debug)]
     struct Tuple3<T> {
-        a: T,
-        b: T,
-        c: T
+        _a: T,
+        _b: T,
+        _c: T
     }
     #[derive(Debug)]
     struct Tuple3Ver2<T>(T,T,T);
@@ -106,9 +106,9 @@ fn test_tuple() {
     impl<T> From<(T, T, T)> for Tuple3<T> {
         fn from(value: (T, T, T)) -> Self {
             Self {
-                a: value.0,
-                b: value.1,
-                c: value.2
+                _a: value.0,
+                _b: value.1,
+                _c: value.2
             }
         }
     }
