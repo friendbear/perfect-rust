@@ -52,7 +52,7 @@ mod test_hash_map_type {
 
         if let Some(k) = map_x.keys().next() {
             match k {
-                1 | 2 | 10 => return,
+                1 | 2 | 10 => ()),
                 _ => unreachable!(),
             }
         }
