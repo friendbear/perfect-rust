@@ -72,7 +72,7 @@ mod test_option_type {
             Some(1).map(|some_value| some_value.to_string()),
             Some("1".to_owned())
         );
-        assert_eq!(Some(1).map(closure), Some("1".to_owned()));
+        assert_eq!(Some(closure(1)), Some("1".to_owned()));
 
         assert_eq!(None.map(|some_value: &str| some_value.len()), None);
         assert_eq!(

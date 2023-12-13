@@ -19,7 +19,7 @@ impl<'a> Member<'a> {
 
     #[allow(dead_code)]
     fn get_name(&self) -> &str {
-        self.name.clone()
+        self.name
     }
 
     #[allow(dead_code)]
