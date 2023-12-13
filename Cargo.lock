@@ -4365,7 +4365,7 @@ dependencies = [
  "core-foundation-sys",
  "libc",
 ]
-
+[[package]]
 name = "sync_wrapper"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
