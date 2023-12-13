@@ -24,7 +24,9 @@ fn main() {
             .with_name("はしちゃん")
             .with_mark("🥢💙🖤")
             .build(),
-        Builder::new().with_mark("☁️🎀").build(),
+        Builder::new()
+            .with_name("花ノ木もえ")
+            .with_mark("☁️🎀").build(),
         Builder::new().with_mark("📘📗🌼").build(),
         Builder::new().with_mark("🐈‍⬛💜.*･").build(),
     ];
@@ -37,7 +39,8 @@ fn main() {
         )
     };
     streamer.iter().for_each(|s| printer(s));
-    streamer.into_iter().for_each(|s| printer(&s));
+//    streamer.into_iter().for_each(|s|#//  printer(&s));
+// TODO:    streamer.into_iter().for_each(printer);
 }
 impl Builder {
     fn new() -> Self {
@@ -83,7 +86,8 @@ fn str_sort_test() {
 
 #[test]
 fn test_loop() {
-    for i in 2 as i128.. {
+    //for i in 2 as i128.. { // #[allow(clippy::unnecessary_cast)]
+    for i in 2_i128.. {
         println!("{i}");
         if i >= i16::MAX.into() {
             break;
@@ -117,7 +121,9 @@ fn test_tuple() {
     let _tuple_mix_type = ("hello", 5, 'c');
     let tuple_one_type = ("hello", "hello", "c");
 
-    let three_tuple = tuple_one_type.clone();
+    // https://rust-lang.github.io/rust-clippy/master/index.html#clone_on_copy
+    // let three_tuple = tuple_one_type.clone();
+    let three_tuple = tuple_one_type;
 
     let instance = Tuple3::<&str>::from(three_tuple);
     println!("{:?}", instance)

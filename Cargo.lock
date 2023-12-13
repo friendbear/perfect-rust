@@ -2165,8 +2165,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28b29a3cd74f0f4598934efe3aeba42bae0eb4680554128851ebbecb02af14e6"
 
 [[package]]
-name = "iriam_profile"
-version = "0.1.0"
+name = "iriam-profile"
+version = "0.1.1"
 
 [[package]]
 name = "is-terminal"

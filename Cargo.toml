@@ -12,7 +12,7 @@ resolver = "2"
 members = [
     "examples/*",
     "practice_collection/*",
-    "iriam_profile/",
+    "iriam-profile/",
     "my-rust-version-hello-world/"
     ]
 
