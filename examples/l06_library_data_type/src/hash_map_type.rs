@@ -50,7 +50,7 @@ mod test_hash_map_type {
         assert!(map_x.contains_key(&2));
         assert_eq!(map_x.get_key_value(&2).unwrap(), (&(2_i64), &"DEF"));
 
-        for k in map_x.keys() {
+        if let Some(k) = map_x.keys().next() {
             match k {
                 1 | 2 | 10 => return,
                 _ => unreachable!(),
