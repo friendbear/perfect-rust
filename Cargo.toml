@@ -13,7 +13,7 @@ members = [
     "examples/*",
     "practice_collection/*",
     "iriam_profile/",
-    "my_rust_version_hello_world/"
+    "my-rust-version-hello-world/"
     ]
 
 #[dependencies]
