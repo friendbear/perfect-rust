@@ -1,17 +1,18 @@
 
 type S = LiveStreamer;
+#[allow(dead_code)]
 #[derive(Debug, Clone)]
 enum LiveStreamerPlatform {
     Youtube,
-    IRIAM,
-    ETC,
+    Iriam,
+    Etc,
 }
 #[derive(Debug, Default, Clone)]
 struct LiveStreamer {
     name: Option<String>,
     mark: Option<String>,
     handle_names: Option<Vec<String>>,
-    platforms: Option<Vec<LiveStreamerPlatform>>,
+    // platforms: Option<Vec<LiveStreamerPlatform>>,
 }
 impl LiveStreamer {
     fn _printer(&self) {
