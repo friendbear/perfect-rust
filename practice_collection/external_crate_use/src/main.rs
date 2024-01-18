@@ -31,7 +31,7 @@ async fn main() -> std::io::Result<()> {
             web::scope("/v2")
             .configure(set_configure)
         )
-        .route("/", web::get().to(|| HttpResponse::Ok()))
+        .route("/", web::get().to(|| HttpResponse::Ok))
     }).bind_openssl("127.0.0.1:8082", create_ssl_accepter_builder())?
     .run()
     .await
