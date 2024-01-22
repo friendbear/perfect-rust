@@ -2,10 +2,11 @@ use actix_web::{
     middleware,
     web::{self, resource, ServiceConfig},
     cookie::time::Duration,
-    App, HttpServer, HttpResponse, Responder,
+    App, HttpServer, HttpResponse, Responder, Error
 };
 use actix_session::config::BrowserSession;
 use actix_session::SessionMiddleware;
+use actix_session::Session;
 use actix_session::storage::CookieSessionStore;
 use openssl::ssl::{SslAcceptor, SslAcceptorBuilder, SslFiletype, SslMethod};
 
@@ -17,6 +18,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
         .wrap(middleware::Logger::default())
+        .wrap(middleware::Logger::new("%a %{User-Agent}i"))
+        .wrap(middleware::DefaultHeaders::new().add(("X-Version", "0.2")))
         .wrap(
             SessionMiddleware::builder(
                 CookieSessionStore::default(), key.clone()
@@ -31,7 +34,7 @@ async fn main() -> std::io::Result<()> {
             web::scope("/v2")
             .configure(set_configure)
         )
-        .route("/", web::get().to(|| HttpResponse::Ok()))
+        .service(web::resource("/").to(index))
     }).bind_openssl("127.0.0.1:8082", create_ssl_accepter_builder())?
     .run()
     .await
@@ -43,9 +46,23 @@ fn set_configure(cfg: &mut ServiceConfig) {
         .route(web::get().to(health))
     );
 }
+async fn index(session: Session) -> Result<HttpResponse, Error> {
+    // access session data
+    if let Some(count) = session.get::<i32>("counter")? {
+        session.insert("counter", count + 1)?;
+    } else {
+        session.insert("counter", 1)?;
+    }
+
+    Ok(HttpResponse::Ok().body(format!(
+        "Count is {:?}!",
+        session.get::<i32>("counter")?.unwrap()
+    )))
+}
+
 async fn health() -> impl Responder {
 
-    HttpResponse::Ok().content_type(mime::APPLICATION_JSON).json(r#"{"health": "Ok"}"#)
+    HttpResponse::Ok().content_type(mime::APPLICATION_JSON).body(r#"{"health": "Ok"}"#)
 }
 // openssl crate
 fn create_ssl_accepter_builder() -> SslAcceptorBuilder {

@@ -6,3 +6,4 @@ rls/
 .vscode
 practice_collection/external_crate_use/local-key.pem
 practice_collection/external_crate_use/local.pem
+.DS_Store

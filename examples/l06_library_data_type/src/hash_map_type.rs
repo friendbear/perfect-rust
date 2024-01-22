@@ -42,7 +42,7 @@ mod test_hash_map_type {
         for (i, v) in map_x.iter_mut().enumerate() {
             println!("i:{}, v.0:{}, v.1:{}", i, v.0, v.1);
             match v {
-                (k, value) if k == &1 => *value = "changed",
+                (&1, value) => *value = "changed",
                 _ => {}
             }
         }
