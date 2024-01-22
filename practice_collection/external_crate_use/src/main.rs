@@ -35,6 +35,8 @@ async fn main() -> std::io::Result<()> {
             .configure(set_configure)
         )
         .service(web::resource("/").to(index))
+//        .route("/", web::get().to(|| HttpResponse::Ok)
+
     }).bind_openssl("127.0.0.1:8082", create_ssl_accepter_builder())?
     .run()
     .await
