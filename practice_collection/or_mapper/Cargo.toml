@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.75"
-async-trait = "0.1.73"
+async-trait = "0.1.77"
 chrono = "0.4.31"
 dotenv = "0.15.0"
 env_logger = "0.10.0"
