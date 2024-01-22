@@ -1,11 +1,11 @@
 ---
-author: friendbeear
-updated: 2024-01-22
-last-modified: 2024-01-22
-article-version: 1.1.0 
+author: friendbear
+updated: 01-22-2024
+last-modified: 01-22-2024
+article-version: 1.0.0
 ---
 
-# About this prooject
+# About this project.
 
 For beginners of the Rust language, this is an experimental code for Hello World starting here.
 
@@ -16,31 +16,36 @@ Discussion is available at the following link from the official Rust website.
 
 * [Rust Lang Version Hello World Starting Here.](https://users.rust-lang.org/t/rust-lang-version-hello-world-starting-here/102494)
 
-## Rust Lang Concept
+## Basic Rust Lang Concepts.
 
-* [ ] Operator
-* [ ] Constants and Variables
-* [ ] Basic data types
-* [ ] Control expressions
-* [ ] Functions
-  * [ ] Lifetime
-* [x] Struct
-* [ ] Enumerated types
-* [x] Trait
-* [x] Generics
-* [ ] Ownership
-* [ ] Match operation
+- [ ] Operator
+- [ ] Constants and Variables
+- [ ] Basic data types
+- [ ] Control expressions
+- [ ] Functions
+- [ ] Lifetime
+- [x] Struct
+- [ ] Enumerated types
+- [x] Trait
+- [x] Generics
+- [ ] Ownership
+- [ ] Match operation
+
+---
 
 ## Features
 
-### Cargo new option or cargo install binary
+### cargo new **option** or cargo install binary `hello-rust`
+
+Generate template code.
 
 * Case Java
 
 ```sh
 cargo new hello-world --from java
- # or 
-rust-hello --generate java hello-world
+# or 
+hello-rust --from java hello-world
 ```
 
-To be cootinued.
+## To be continued.
+
