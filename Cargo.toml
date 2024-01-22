@@ -8,11 +8,12 @@
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-resolver = "1"
+resolver = "2"
 members = [
     "examples/*",
     "practice_collection/*",
-    "iriam_profile/"
+    "iriam-profile/",
+    "my-rust-version-hello-world/"
     ]
 
 #[dependencies]
