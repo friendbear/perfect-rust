@@ -41,10 +41,16 @@ mod test_hash_map_type {
 
         for (i, v) in map_x.iter_mut().enumerate() {
             println!("i:{}, v.0:{}, v.1:{}", i, v.0, v.1);
+
+            // #[allow(clippy::single_match)]
+            /*/
             match v {
                 (&1, value) => *value = "changed",
                 _ => {}
             }
+            */
+
+            if let (&1, value) = v { *value = "changed" }
         }
         assert_eq!(map_x.get(&1).unwrap(), &"changed");
         assert!(map_x.contains_key(&2));
@@ -53,6 +59,7 @@ mod test_hash_map_type {
         if let Some(k) = map_x.keys().next() {
             match k {
                 1 | 2 | 10 => (),
+                20 => (),
                 _ => unreachable!(),
             }
         }
