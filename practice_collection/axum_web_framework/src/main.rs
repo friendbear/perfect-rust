@@ -1,5 +1,5 @@
 
-use axum::{routing::get, Router, debug_handler};
+use axum::{routing::get, Router};
 
 #[tokio::main]
 async fn main() {
@@ -11,7 +11,6 @@ async fn main() {
         .unwrap();
 }
 
-#[debug_handler]
 async fn handler() -> &'static str {
     "Hello, world"
 }
