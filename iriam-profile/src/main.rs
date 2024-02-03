@@ -15,11 +15,11 @@ struct LiveStreamer {
     // platforms: Option<Vec<LiveStreamerPlatform>>,
 }
 impl LiveStreamer {
-    fn _printer(&self) {
+    fn printer(&self) {
         println!(
             "{}{}Liked♡",
-            self.name.clone().unwrap_or_default(),
-            self.mark.clone().unwrap_or_default()
+            self.name.as_deref().unwrap_or_default(),
+            self.mark.as_deref().unwrap_or_default()
         )
     }
 }
@@ -68,15 +68,14 @@ fn main() {
     ];
     let printer = |s: &S| {
         println!(
-            "{} Liked♡",
-            s.name.clone().unwrap_or_default()
-                + s.mark.clone().unwrap_or_default().as_str()
-                + s.handle_names.clone().unwrap_or_default().join(",").as_str()
+            "{}{}{} Liked♡",
+                s.name.as_deref().unwrap_or_default(),
+                s.mark.as_deref().unwrap_or_default(),
+                s.handle_names.as_deref().unwrap_or_default().join(",")
         )
     };
+    streamer.iter().for_each(LiveStreamer::printer);
     streamer.iter().for_each(printer);
-//    streamer.into_iter().for_each(|s|#//  printer(&s));
-// TODO:    streamer.into_iter().for_each(printer);
 }
 impl Builder {
     fn new() -> Self {
@@ -127,11 +126,11 @@ fn str_sort_test() {
 }
 
 #[test]
-fn test_loop() {
+fn test_not_infinite_loop() {
     //for i in 2 as i128.. { // #[allow(clippy::unnecessary_cast)]
-    for i in 2_i128.. {
+    for i in 0_u128.. {
         println!("{i}");
-        if i >= i16::MAX.into() {
+        if i >= u64::MAX.into() {
             break;
         }
     }
