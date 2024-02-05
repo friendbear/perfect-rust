@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 
 type S = LiveStreamer;
 #[allow(dead_code)]
@@ -14,26 +16,32 @@ struct LiveStreamer {
     handle_names: Option<Vec<String>>,
     // platforms: Option<Vec<LiveStreamerPlatform>>,
 }
-impl LiveStreamer {
-    fn _printer(&self) {
-        println!(
-            "{}{}Liked♡",
-            self.name.clone().unwrap_or_default(),
-            self.mark.clone().unwrap_or_default()
+
+impl Display for LiveStreamer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{:?}{:?}\n{:?}",
+            self.name.as_deref().unwrap_or_default(),
+            self.mark.as_deref().unwrap_or_default(),
+            self.handle_names.as_deref().unwrap_or_default().join(", ")
         )
     }
 }
+
 struct Builder(LiveStreamer);
 fn main() {
     let streamer = vec![
-        Builder::new().with_name("eL(神様)").build(),
+        Builder::new().with_name("eL(神様)&ミタマ")
+            .with_handle_names(vec!["@mitama_sama"])
+            .build(),
         Builder::new().with_name("逢坂きゅうり。")
             .with_handle_names(vec!["@aisakakyuuuuuri"])
             .build(),
         Builder::new()
             .with_name("晴陽かりん")
-            .with_mark("")
-            .with_handle_names(vec!["@AmagasaPalapa"])
+            .with_mark("🐱💗🐟")
+            .with_handle_names(vec!["@harenohi_kaarin"])
             .build(),
         Builder::new()
             .with_name("神園える")
@@ -66,17 +74,18 @@ fn main() {
             .with_handle_names(vec!["@hash_iriam", "@babu_hashi"])
             .build(),
     ];
-    let printer = |s: &S| {
+    let printer = |s: S| {
         println!(
-            "{} Liked♡",
-            s.name.clone().unwrap_or_default()
-                + s.mark.clone().unwrap_or_default().as_str()
-                + s.handle_names.clone().unwrap_or_default().join(",").as_str()
+            "♡{}, {}, {}",
+            s.name.as_deref().unwrap_or_default(),
+            s.mark.as_deref().unwrap_or_default(),
+            s.handle_names.as_deref().unwrap_or_default().join(",")
         )
     };
-    streamer.iter().for_each(printer);
-//    streamer.into_iter().for_each(|s|#//  printer(&s));
-// TODO:    streamer.into_iter().for_each(printer);
+    streamer.iter().enumerate().for_each(|s| {
+        println!("{}, {}", s.0, s.1);
+    });
+    streamer.into_iter().for_each(printer);
 }
 impl Builder {
     fn new() -> Self {
