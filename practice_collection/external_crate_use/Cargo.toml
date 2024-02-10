@@ -11,7 +11,7 @@ actix-http = "3.4.0"
 actix-web = { version = "4.4.0", features = ["openssl"] }
 anyhow = "1.0.75"
 dotenv = "0.15.0"
-env_logger = "0.10.0"
+env_logger = "0.10.2"
 log = "0.4.20"
 mime = "0.3.17"
 serde = { version = "1.0.0", features = ["derive"] }
