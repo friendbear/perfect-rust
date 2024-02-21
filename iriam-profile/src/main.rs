@@ -1,5 +1,28 @@
-use std::fmt::Display;
 
+//! This module contains the main code for the Iriam profile application.
+//!
+//! The code defines the `LiveStreamer` struct, which represents a live streamer profile.
+//! It also includes a builder pattern implementation for creating instances of `LiveStreamer`.
+//! The `Builder` struct provides methods for setting the name, mark, and handle names of the streamer.
+//! The `LiveStreamer` struct implements the `Display` trait for custom formatting.
+//! The main function creates a list of streamers using the builder pattern and prints their details.
+//!
+//! # Example
+//!
+//! ```rust
+//! use iriam_profile::Builder;
+//!
+//! let streamer = Builder::new()
+//!     .with_name("MyStreamer")
+//!     .with_mark("12345")
+//!     .with_handle_names(vec!["handle1", "handle2"])
+//!     .build();
+//!
+//! println!("{}", streamer);
+//! ```
+//!
+//! For more information, see the documentation of the individual types and methods.
+use std::fmt::Display;
 
 type S = LiveStreamer;
 #[allow(dead_code)]
@@ -87,10 +110,48 @@ fn main() {
     });
     streamer.into_iter().for_each(printer);
 }
+/// Builder struct for creating instances of LiveStreamer.
+///
+/// The Builder struct provides a fluent interface for configuring and building instances of LiveStreamer.
+/// It allows setting the name, mark, and handle names of the LiveStreamer.
+/// Once all the desired properties are set, the `build` method is used to create the final LiveStreamer instance.
+///
+/// # Example
+///
+/// ```
+/// let streamer = Builder::new()
+///     .with_name("MyStreamer")
+///     .with_mark("12345")
+///     .with_handle_names(vec!["handle1", "handle2"])
+///     .build();
+/// ```
 impl Builder {
+    /// Creates a new instance of the Builder.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let builder = Builder::new();
+    /// ```
     fn new() -> Self {
         Builder(LiveStreamer::default())
     }
+
+    /// Sets the name of the LiveStreamer.
+    ///
+    /// # Arguments
+    ///
+    /// * `name` - The name of the LiveStreamer.
+    ///
+    /// # Returns
+    ///
+    /// The updated Builder instance.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let builder = Builder::new().with_name("MyStreamer");
+    /// ```
     fn with_name(&self, name: &str) -> Self {
         Builder(LiveStreamer {
             name: Some(name.to_string().clone()),
