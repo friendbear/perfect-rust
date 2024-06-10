@@ -39,7 +39,6 @@ struct LiveStreamer {
     handle_names: Option<Vec<String>>,
     // platforms: Option<Vec<LiveStreamerPlatform>>,
 }
-
 impl Display for LiveStreamer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
@@ -109,6 +108,7 @@ fn main() {
         println!("{}, {}", s.0, s.1);
     });
     streamer.into_iter().for_each(printer);
+
 }
 /// Builder struct for creating instances of LiveStreamer.
 ///
@@ -197,11 +197,11 @@ fn str_sort_test() {
 }
 
 #[test]
-fn test_loop() {
+fn test_not_infinite_loop() {
     //for i in 2 as i128.. { // #[allow(clippy::unnecessary_cast)]
-    for i in 2_i128.. {
+    for i in 0_u128.. {
         println!("{i}");
-        if i >= i16::MAX.into() {
+        if i >= u64::MAX.into() {
             break;
         }
     }
