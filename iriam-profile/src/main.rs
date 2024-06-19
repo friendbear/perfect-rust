@@ -1,4 +1,3 @@
-
 //! This module contains the main code for the Iriam profile application.
 //!
 //! The code defines the `LiveStreamer` struct, which represents a live streamer profile.
@@ -55,10 +54,12 @@ impl Display for LiveStreamer {
 struct Builder(LiveStreamer);
 fn main() {
     let streamer = vec![
-        Builder::new().with_name("eL(神様)&ミタマ")
+        Builder::new()
+            .with_name("eL(神様)&ミタマ")
             .with_handle_names(vec!["@mitama_sama"])
             .build(),
-        Builder::new().with_name("逢坂きゅうり。")
+        Builder::new()
+            .with_name("逢坂きゅうり。")
             .with_handle_names(vec!["@aisakakyuuuuuri"])
             .build(),
         Builder::new()
@@ -85,12 +86,8 @@ fn main() {
             .with_name("花ノ木もえ")
             .with_mark("☁️🎀")
             .build(),
-        Builder::new()
-            .with_mark("📘📗🌼")
-            .build(),
-        Builder::new()
-            .with_mark("🐈‍⬛💜.*･")
-            .build(),
+        Builder::new().with_mark("📘📗🌼").build(),
+        Builder::new().with_mark("🐈‍⬛💜.*･").build(),
         Builder::new()
             .with_name("はしちゃん")
             .with_mark("🥢💙🖤")
@@ -209,26 +206,24 @@ fn test_loop() {
 
 #[test]
 fn test_tuple() {
-
     #[derive(Debug)]
     struct Tuple3<T> {
         _a: T,
         _b: T,
-        _c: T
+        _c: T,
     }
     #[derive(Debug)]
-    struct Tuple3Ver2<T>(T,T,T);
+    struct Tuple3Ver2<T>(T, T, T);
 
     impl<T> From<(T, T, T)> for Tuple3<T> {
         fn from(value: (T, T, T)) -> Self {
             Self {
                 _a: value.0,
                 _b: value.1,
-                _c: value.2
+                _c: value.2,
             }
         }
     }
-
 
     let _tuple_mix_type = ("hello", 5, 'c');
     let tuple_one_type = ("hello", "hello", "c");
@@ -239,7 +234,6 @@ fn test_tuple() {
 
     let instance = Tuple3::<&str>::from(three_tuple);
     println!("{:?}", instance)
-
 }
 
 #[test]
@@ -259,4 +253,42 @@ fn test_trait_and_struct_01() {
     let ans = <MyStruct as MyTrait<String, MyStruct>>::hello_world(my_instance);
     println!("{ans}");
     assert_eq!(ans, "My name is T Kumagai".to_string());
+}
+
+
+fn example<'a>(x: &'a str) -> &'a str {
+    x
+}
+/// 匿名ライフタイム
+fn example_anonymous(x: &'_ str) -> &'_ str {
+    x
+}
+
+struct Container<'a> {
+    reference: &'a str,
+}
+
+impl<'a> Container<'a> {
+    fn new(reference: &'a str) -> Self {
+        Container { reference }
+    }
+
+    fn get_reference(&self) -> &'a str {
+        self.reference
+    }
+}
+
+// 匿名ライフタイムを使用する場合
+impl Container<'_> {
+    fn get_reference_anonymous(&self) -> &str {
+        self.reference
+    }
+}
+
+#[test]
+fn test_reference_anoymous() {
+    let text = "Hello, Rust!";
+    let container = Container::new(text);
+    println!("{}", container.get_reference());
+    println!("{}", container.get_reference_anonymous());
 }
