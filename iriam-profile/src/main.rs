@@ -385,7 +385,7 @@ mod tests_lifetime {
 
         match v.get(index) {
             Some(s) => Cow::Borrowed(s),
-            None => Cow::Borrowed(""),
+            None => Cow::Owned("".to_string()),
         }
     }
 
