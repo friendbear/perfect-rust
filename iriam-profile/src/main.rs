@@ -43,7 +43,7 @@ impl Display for LiveStreamer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "{:?}{:?}\n{:?}",
+            "{}{}\n{}",
             self.name.as_deref().unwrap_or_default(),
             self.mark.as_deref().unwrap_or_default(),
             self.handle_names.as_deref().unwrap_or_default().join(", ")
@@ -218,6 +218,7 @@ mod tests {
             .with_handle_names(handle_names.clone())
             .build();
         let display_output = format!("{}", streamer);
+        println!("{}", display_output);
         assert_eq!(display_output, "TestStreamerTestMark\n@handle1, @handle2");
     }
 }
@@ -248,7 +249,7 @@ fn test_not_infinite_loop() {
     //for i in 2 as i128.. { // #[allow(clippy::unnecessary_cast)]
     for i in 0_u128.. {
         println!("{i}");
-        if i >= u64::MAX.into() {
+        if i >= u8::MAX.into() {
             break;
         }
     }
