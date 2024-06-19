@@ -1,4 +1,3 @@
-
 //! This module contains the main code for the Iriam profile application.
 //!
 //! The code defines the `LiveStreamer` struct, which represents a live streamer profile.
@@ -22,6 +21,7 @@
 //! ```
 //!
 //! For more information, see the documentation of the individual types and methods.
+#![allow(dead_code)]
 use std::fmt::Display;
 
 type S = LiveStreamer;
@@ -43,7 +43,7 @@ impl Display for LiveStreamer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "{:?}{:?}\n{:?}",
+            "{}{}\n{}",
             self.name.as_deref().unwrap_or_default(),
             self.mark.as_deref().unwrap_or_default(),
             self.handle_names.as_deref().unwrap_or_default().join(", ")
@@ -54,10 +54,12 @@ impl Display for LiveStreamer {
 struct Builder(LiveStreamer);
 fn main() {
     let streamer = vec![
-        Builder::new().with_name("eL(神様)&ミタマ")
+        Builder::new()
+            .with_name("eL(神様)&ミタマ")
             .with_handle_names(vec!["@mitama_sama"])
             .build(),
-        Builder::new().with_name("逢坂きゅうり。")
+        Builder::new()
+            .with_name("逢坂きゅうり。")
             .with_handle_names(vec!["@aisakakyuuuuuri"])
             .build(),
         Builder::new()
@@ -84,12 +86,8 @@ fn main() {
             .with_name("花ノ木もえ")
             .with_mark("☁️🎀")
             .build(),
-        Builder::new()
-            .with_mark("📘📗🌼")
-            .build(),
-        Builder::new()
-            .with_mark("🐈‍⬛💜.*･")
-            .build(),
+        Builder::new().with_mark("📘📗🌼").build(),
+        Builder::new().with_mark("🐈‍⬛💜.*･").build(),
         Builder::new()
             .with_name("はしちゃん")
             .with_mark("🥢💙🖤")
@@ -175,6 +173,56 @@ impl Builder {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_builder_with_name() {
+        let streamer = Builder::new().with_name("TestStreamer").build();
+        assert_eq!(streamer.name, Some("TestStreamer".to_string()));
+    }
+
+    #[test]
+    fn test_builder_with_mark() {
+        let streamer = Builder::new().with_mark("TestMark").build();
+        assert_eq!(streamer.mark, Some("TestMark".to_string()));
+    }
+
+    #[test]
+    fn test_builder_with_handle_names() {
+        let handle_names = vec!["@handle1", "@handle2"];
+        let streamer = Builder::new().with_handle_names(handle_names.clone()).build();
+        assert_eq!(streamer.handle_names, Some(handle_names.iter().map(|&s| s.to_string()).collect()));
+    }
+
+    #[test]
+    fn test_builder_full() {
+        let handle_names = vec!["@handle1", "@handle2"];
+        let streamer = Builder::new()
+            .with_name("TestStreamer")
+            .with_mark("TestMark")
+            .with_handle_names(handle_names.clone())
+            .build();
+        assert_eq!(streamer.name, Some("TestStreamer".to_string()));
+        assert_eq!(streamer.mark, Some("TestMark".to_string()));
+        assert_eq!(streamer.handle_names, Some(handle_names.iter().map(|&s| s.to_string()).collect()));
+    }
+
+    #[test]
+    fn test_display() {
+        let handle_names = vec!["@handle1", "@handle2"];
+        let streamer = Builder::new()
+            .with_name("TestStreamer")
+            .with_mark("TestMark")
+            .with_handle_names(handle_names.clone())
+            .build();
+        let display_output = format!("{}", streamer);
+        println!("{}", display_output);
+        assert_eq!(display_output, "TestStreamerTestMark\n@handle1, @handle2");
+    }
+}
+
 #[allow(dead_code)]
 fn str_sort() {
     let mut s: Vec<char> =
@@ -201,7 +249,7 @@ fn test_not_infinite_loop() {
     //for i in 2 as i128.. { // #[allow(clippy::unnecessary_cast)]
     for i in 0_u128.. {
         println!("{i}");
-        if i >= u64::MAX.into() {
+        if i >= u8::MAX.into() {
             break;
         }
     }
@@ -209,26 +257,24 @@ fn test_not_infinite_loop() {
 
 #[test]
 fn test_tuple() {
-
     #[derive(Debug)]
     struct Tuple3<T> {
         _a: T,
         _b: T,
-        _c: T
+        _c: T,
     }
     #[derive(Debug)]
-    struct Tuple3Ver2<T>(T,T,T);
+    struct Tuple3Ver2<T>(T, T, T);
 
     impl<T> From<(T, T, T)> for Tuple3<T> {
         fn from(value: (T, T, T)) -> Self {
             Self {
                 _a: value.0,
                 _b: value.1,
-                _c: value.2
+                _c: value.2,
             }
         }
     }
-
 
     let _tuple_mix_type = ("hello", 5, 'c');
     let tuple_one_type = ("hello", "hello", "c");
@@ -239,7 +285,6 @@ fn test_tuple() {
 
     let instance = Tuple3::<&str>::from(three_tuple);
     println!("{:?}", instance)
-
 }
 
 #[test]
@@ -259,4 +304,104 @@ fn test_trait_and_struct_01() {
     let ans = <MyStruct as MyTrait<String, MyStruct>>::hello_world(my_instance);
     println!("{ans}");
     assert_eq!(ans, "My name is T Kumagai".to_string());
+}
+
+
+fn example<'a>(x: &'a str) -> &'a str {
+    x
+}
+/// 匿名ライフタイム
+fn example_anonymous(x: &'_ str) -> &'_ str {
+    x
+}
+
+struct Container<'a> {
+    reference: &'a str,
+}
+
+impl<'a> Container<'a> {
+    fn new(reference: &'a str) -> Self {
+        Container { reference }
+    }
+
+    fn get_reference(&self) -> &'a str {
+        self.reference
+    }
+}
+
+// 匿名ライフタイムを使用する場合
+impl Container<'_> {
+    fn get_reference_anonymous(&self) -> &str {
+        self.reference
+    }
+}
+
+#[test]
+fn test_reference_anoymous() {
+    let text = "Hello, Rust!";
+    let container = Container::new(text);
+    println!("{}", container.get_reference());
+    println!("{}", container.get_reference_anonymous());
+}
+
+#[derive(Debug)]
+struct A1<'a> {
+    a01: &'a str,
+    a02: i32,
+}
+
+impl<'a> A1<'a> {
+    fn new(a01: &'a str, a02: i32) -> Self {
+        A1 { a01, a02 }
+    }
+
+    fn get_a01(&self) -> &str {
+        self.a01
+    }
+
+    fn set_a01(&mut self, a01: &'a str) {
+        self.a01 = a01;
+    }
+}
+
+#[cfg(test)]
+mod tests_lifetime {
+    use super::*;
+
+    // https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
+    //fn return_short_lifetime(v: &[String]) -> &str {
+    //    &v.get(3).unwrap_or_else(|| Box::new(&"".to_string())).as_str()
+    //}
+
+    fn return_short_lifetime_unwrap_or(v: &[String]) -> &str {
+        v.get(2).map(|s| s.as_str()).unwrap_or("")
+    }
+
+    fn return_short_lifetime_return_string(v: &[String]) -> String {
+        v.get(2).map(|s| s.clone()).unwrap_or_else(|| "".to_string())
+    }
+
+    use std::borrow::Cow;
+    fn return_short_lifetime_clone_on_write(v: &[String], index: usize) -> Cow<str> {
+
+        match v.get(index) {
+            Some(s) => Cow::Borrowed(s),
+            None => Cow::Owned("".to_string()),
+        }
+    }
+
+    #[test]
+    /// Lifetime in deep dive
+    fn test_lifetime_a1() {
+        let v1 = vec!["aaa".to_string(), "bbb".to_string(), "ccc".to_string()];
+        let mut a1 = A1::new(&v1[0], 4);
+        println!("{}", a1.get_a01());
+        assert_eq!(a1.get_a01(), "aaa");
+        a1.set_a01(&v1[1]);
+        assert_eq!(return_short_lifetime_unwrap_or(&v1), "ccc"); // unwrap_or
+        assert_eq!(return_short_lifetime_return_string(&v1), "ccc"); // return String
+        assert_eq!(return_short_lifetime_clone_on_write(&v1, 3), ""); // return Cow<str>
+        let v2 = vec![String::from("aaa"), String::from("bbb"), String::from("ccc")];
+        let _ = return_short_lifetime_clone_on_write(&v2, 3).into_owned();
+    }
 }

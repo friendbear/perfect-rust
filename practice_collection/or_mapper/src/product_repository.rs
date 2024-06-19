@@ -4,7 +4,6 @@ use crate::modules::product::{Column, Entity as Product, Model};
 use crate::repository::Repository;
 use anyhow::{Error, Result};
 use async_trait::async_trait;
-use sea_orm::{ActiveModelTrait, Statement, ConnectionTrait};
 use sea_orm::ActiveValue::Set; // {NotSet, Set, Unchanged};
 use sea_orm::ColumnTrait;
 use sea_orm::DatabaseTransaction;
@@ -12,6 +11,7 @@ use sea_orm::EntityTrait;
 use sea_orm::IntoActiveModel;
 use sea_orm::QueryFilter;
 use sea_orm::QueryOrder;
+use sea_orm::{ActiveModelTrait, ConnectionTrait, Statement};
 
 pub struct ProductRepository;
 impl ProductRepository {
@@ -94,11 +94,11 @@ impl ProductRepository {
         Ok(product_and_category)
     }
     #[allow(dead_code)]
-    async fn select_by_id_stmt(&self, db: &DatabaseTransaction, id:i32) -> Result<Model> {
+    async fn select_by_id_stmt(&self, db: &DatabaseTransaction, id: i32) -> Result<Model> {
         let stmt = Statement::from_sql_and_values(
             sea_orm::DatabaseBackend::Postgres,
             r#"SELECT id, name, price, category_id FROM product WHERE id = $1"#,
-            vec![id.into()]
+            vec![id.into()],
         );
         let row = Product::find().from_raw_sql(stmt).one(db).await?;
         row.ok_or(Error::msg("Not found."))
@@ -108,7 +108,7 @@ impl ProductRepository {
         let stmt = Statement::from_sql_and_values(
             sea_orm::DatabaseBackend::Postgres,
             r#"INSERT INTO product(name, category_id) VALUES($1, $2)"#,
-            vec![row.name.into(), row.category_id.into()]
+            vec![row.name.into(), row.category_id.into()],
         );
         let result = db.execute(stmt).await?;
         Ok(result.rows_affected())
