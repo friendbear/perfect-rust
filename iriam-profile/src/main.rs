@@ -373,11 +373,11 @@ mod tests_lifetime {
     //}
 
     fn return_short_lifetime_unwrap_or(v: &[String]) -> &str {
-        v.get(3).map(|s| s.as_str()).unwrap_or("")
+        v.get(2).map(|s| s.as_str()).unwrap_or("")
     }
 
     fn return_short_lifetime_return_string(v: &[String]) -> String {
-        v.get(3).map(|s| s.clone()).unwrap_or_else(|| "".to_string())
+        v.get(2).map(|s| s.clone()).unwrap_or_else(|| "".to_string())
     }
 
     use std::borrow::Cow;
@@ -399,7 +399,7 @@ mod tests_lifetime {
         a1.set_a01(&v1[1]);
         assert_eq!(return_short_lifetime_unwrap_or(&v1), "ccc"); // unwrap_or
         assert_eq!(return_short_lifetime_return_string(&v1), "ccc"); // return String
-        assert_eq!(return_short_lifetime_clone_on_write(&v1, 3), "ccc"); // return Cow<str>
+        assert_eq!(return_short_lifetime_clone_on_write(&v1, 3), ""); // return Cow<str>
         let v2 = vec![String::from("aaa"), String::from("bbb"), String::from("ccc")];
         let _ = return_short_lifetime_clone_on_write(&v2, 3).into_owned();
     }
