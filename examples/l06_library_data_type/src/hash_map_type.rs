@@ -50,7 +50,9 @@ mod test_hash_map_type {
             }
             */
 
-            if let (&1, value) = v { *value = "changed" }
+            if let (&1, value) = v {
+                *value = "changed"
+            }
         }
         assert_eq!(map_x.get(&1).unwrap(), &"changed");
         assert!(map_x.contains_key(&2));
