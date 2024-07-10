@@ -1,4 +1,3 @@
-
 use axum::{routing::get, Router};
 
 #[tokio::main]
