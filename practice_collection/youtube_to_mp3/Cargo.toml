@@ -3,6 +3,10 @@ name = "youtube_to_mp3"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "youtube_to_mp3"
+src = "bin/youtube_to_mp3.rs"
+
 [dependencies]
 google-youtube3 = "2.0"
 tokio = { version = "1", features = ["full"] }
