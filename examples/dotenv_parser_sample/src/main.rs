@@ -10,8 +10,7 @@ struct Config {
     port: u16,
 }
 fn main() {
-
     let config = Config::parse();
-    
+
     dbg!(&config);
 }

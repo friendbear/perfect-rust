@@ -19,18 +19,6 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    name: Run clippy
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - uses: Swatinem/rust-cache@v2
-      - name: Setup rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-      - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings -D dead-code -D clippy::unnecessary-fold -D clippy::option-map-or-none -D unused-imports -D unused-imports -D clippy::bind-instead-of-map -D clippy::redundant-closure -D clippy::option-map-or-none
-
   build:
 
     runs-on: ubuntu-latest

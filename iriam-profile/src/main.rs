@@ -59,6 +59,11 @@ fn main() {
             .with_handle_names(vec!["@mitama_sama"])
             .build(),
         Builder::new()
+            .with_name("白兎にあ")
+            .with_handle_names(vec!["@niashirosagi_", "@niashirosagi"])
+            .with_mark("🐰🤍") // 引退日 2024-06-30, birsday 06-30
+            .build(),
+        Builder::new()
             .with_name("逢坂きゅうり。")
             .with_handle_names(vec!["@aisakakyuuuuuri"])
             .build(),
