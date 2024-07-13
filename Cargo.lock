@@ -5711,6 +5711,9 @@ dependencies = [
  "serde_json",
  "tokio",
  "url 2.4.0",
+}
+
+[[package]]
 name = "zerocopy"
 version = "0.7.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
