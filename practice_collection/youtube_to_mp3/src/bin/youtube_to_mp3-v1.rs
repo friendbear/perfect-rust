@@ -4,7 +4,6 @@ use std::env;
 use std::error::Error;
 use std::fs::File;
 use std::path::Path;
-use tokio::main;
 
 // API Response のjson を構造体で定義
 #[derive(Serialize, Deserialize, Debug)]

@@ -18,7 +18,7 @@ pub fn use_constraint() {
     println!("calc value = {}", result);
     println!("SAMPLE_NAME = {}", SAMPLE_NAME);
     unsafe {
-        for v in &vec![1, 2, 3, 4, 5, 6, 7, 8, 9] {
+        for v in &[1, 2, 3, 4, 5, 6, 7, 8, 9] {
             calc_total(*v);
         }
         println!("TOTAL_VALUE = {}", TOTAL_VALUE);

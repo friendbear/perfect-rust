@@ -33,12 +33,12 @@ const MAX_RESULTS: u32 = 50;
 fn search_videos(api_key: &str, query: &str) -> Result<Vec<SearchResult>, Box<dyn Error>> {
     let url = format!("https://www.googleapis.com/youtube/v3/search?key={}&part=snippet&q={}&maxResults={}&type=video", api_key, query, MAX_RESULTS);
     let client = Client::new();
-    let response = client.get(&url).send()?.json::<SearchResponse>()?;
+    let response = client.get(url).send()?.json::<SearchResponse>()?;
     //println!("{:?}", seade_json::to_json::<SearchResponse>(response));
     Ok(response.items)
 }
 fn sanitize_filename(filename: &str) -> String {
-    filename.replace("/", "_")
+    filename.replace('/', "_")
 }
 
 fn download_video(video_id: &str, output_dir: &str) -> Result<PathBuf, Box<dyn Error>> {
