@@ -15,4 +15,4 @@ env_logger = "0.10.2"
 log = "0.4.20"
 mime = "0.3.17"
 serde = { version = "1.0.0", features = ["derive"] }
-openssl = { version ="0.10.60", features = ["v110"] }
+openssl = { version ="0.10.66", features = ["v110"] }
