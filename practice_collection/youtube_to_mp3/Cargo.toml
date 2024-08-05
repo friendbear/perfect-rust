@@ -12,7 +12,7 @@ google-youtube3 = "2.0"
 tokio = { version = "1", features = ["full"] }
 dotenv = "0.15"
 hyper = "1.4"
-hyper-rustls = "0.26"
+hyper-rustls = "0.27"
 reqwest = { version = "0.11.9", features = ["json", "blocking"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_derive = "1.0"
