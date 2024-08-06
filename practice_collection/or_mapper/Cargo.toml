@@ -8,10 +8,10 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.75"
 async-trait = "0.1.80"
-chrono = "0.4.31"
+chrono = "0.4.38"
 dotenv = "0.15.0"
 env_logger = "0.10.2"
-log = "0.4.20"
+log = "0.4.22"
 lombok = "0.4.0"
 proc-macro2 = "1.0.86"
 

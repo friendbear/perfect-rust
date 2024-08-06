@@ -312,7 +312,7 @@ fn test_trait_and_struct_01() {
 }
 
 
-fn example<'a>(x: &'a str) -> &'a str {
+fn example(x: &str) -> &str {
     x
 }
 /// 匿名ライフタイム
@@ -383,7 +383,7 @@ mod tests_lifetime {
     }
 
     fn return_short_lifetime_return_string(v: &[String]) -> String {
-        v.get(2).map(|s| s.clone()).unwrap_or_else(|| "".to_string())
+        v.get(2).cloned().unwrap_or_default()
     }
 
     use std::borrow::Cow;

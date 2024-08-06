@@ -4,7 +4,6 @@ use std::env;
 use std::error::Error;
 use std::fs::File;
 use std::path::Path;
-use tokio::main;
 
 // API Response のjson を構造体で定義
 #[derive(Serialize, Deserialize, Debug)]
@@ -72,7 +71,7 @@ async fn main() {
     dotenv::dotenv().ok();
 
     let api_key = env::var("YOUTUBE_API_KEY").expect("YOUTUBE_API_KEY must be set");
-    let query = "Hatsune Miku"; // 検索クエリを設定する
+    let query = "英会話リスニング"; // 検索クエリを設定する
 
     match search_videos(&api_key, query).await {
         Ok(results) => {
