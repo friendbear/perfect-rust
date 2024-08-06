@@ -28,7 +28,7 @@ struct Snippet {
     title: String,
 }
 
-const MAX_RESULTS: u32 = 50;
+const MAX_RESULTS: u32 = 350;
 
 fn search_videos(api_key: &str, query: &str) -> Result<Vec<SearchResult>, Box<dyn Error>> {
     let url = format!("https://www.googleapis.com/youtube/v3/search?key={}&part=snippet&q={}&maxResults={}&type=video", api_key, query, MAX_RESULTS);
