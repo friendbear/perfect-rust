@@ -17,5 +17,5 @@ proc-macro2 = "1.0.86"
 
 sea-orm = { version = "0.12", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros" ] }
 serde = { version = "1.0.193", features = ["derive"] }
-serde_json = { version = "1.0.107", default-features = false, features = ["alloc"] }
+serde_json = { version = "1.0.124", default-features = false, features = ["alloc"] }
 tokio = { version = "1.32.0", features = ["full"] }
