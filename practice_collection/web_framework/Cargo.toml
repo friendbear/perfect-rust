@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-http = "3.4.0"
+actix-http = "3.5.1"
 actix-web = "4.4.0"
 anyhow = "1.0.75"
 dotenv = "0.15.0"
