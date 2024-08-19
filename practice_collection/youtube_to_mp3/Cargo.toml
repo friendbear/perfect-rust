@@ -8,7 +8,7 @@ name = "youtube_to_mp3"
 src = "bin/youtube_to_mp3.rs"
 
 [dependencies]
-google-youtube3 = "2.0"
+google-youtube3 = "5.0"
 tokio = { version = "1", features = ["full"] }
 dotenv = "0.15"
 hyper = "1.4"
