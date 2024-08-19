@@ -9,7 +9,7 @@ edition = "2021"
 actix-session = { version = "0.8.0", features = ["cookie-session"] }
 actix-http = "3.5.1"
 actix-web = { version = "4.4.0", features = ["openssl"] }
-anyhow = "1.0.75"
+anyhow = "1.0.86"
 dotenv = "0.15.0"
 env_logger = "0.10.2"
 log = "0.4.22"
