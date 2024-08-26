@@ -10,7 +10,7 @@ actix-http = "3.9.0"
 actix-web = "4.4.0"
 anyhow = "1.0.86"
 dotenv = "0.15.0"
-env_logger = "0.10.2"
+env_logger = "0.11.1"
 log = "0.4.22"
 mime = "0.3.17"
 serde = { version = "1.0.193", features = ["derive"] }
