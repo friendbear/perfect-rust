@@ -14,4 +14,4 @@ lombok = "0.4.0"
 mongodb = "3.1.0"
 proc-macro2 = "1.0.86"
 serde = { version = "1.0.209", features = ["derive"] }
-tokio = { version = "1.38.1", features = ["full"] }
+tokio = { version = "1.40.0", features = ["full"] }
