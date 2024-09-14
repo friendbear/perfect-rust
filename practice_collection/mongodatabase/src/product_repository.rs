@@ -26,7 +26,7 @@ impl Repository<Product, i32, bool> for ProductRepository {
     async fn select_all(&self) -> Result<Vec<Product>> {
         //        let doc = doc! {"price", 1 };
         //        let options = FindOptions::builder().sort(doc).build();
-        let mut cursor = self.collection.find(None, None).await?;
+        let mut cursor = self.collection.find(doc! {}).await?;
         let mut products = Vec::new();
         while let Some(product) = cursor.next().await {
             products.push(product?);
@@ -35,19 +35,19 @@ impl Repository<Product, i32, bool> for ProductRepository {
     }
     async fn select_by_id(&self, id: i32) -> Result<Product> {
         self.collection
-            .find_one(doc! {"product_id": id}, None)
+            .find_one(doc! {"product_id": id})
             .await?
             .ok_or(Error::msg("Not found"))
     }
     async fn insert(&self, row: Product) -> Result<bool> {
         self.collection
-            .insert_one(row, None)
+            .insert_one(row)
             .await
             .map(|_| Ok(true))?
     }
     async fn insert_many(&self, cols: Vec<Product>) -> Result<bool> {
         self.collection
-            .insert_many(cols.clone(), None)
+            .insert_many(cols.clone())
             .await
             .map(|result| {
                 if result.inserted_ids.iter().len() == cols.iter().len() {
@@ -63,7 +63,7 @@ impl Repository<Product, i32, bool> for ProductRepository {
             doc! { "name": row.get_name(), "price": row.get_price() },
         );
         self.collection
-            .update_one(query, update, None)
+            .update_one(query, update)
             .await
             .map(|result| {
                 if result.modified_count == 1 {
@@ -77,7 +77,7 @@ impl Repository<Product, i32, bool> for ProductRepository {
     async fn delete_by_id(&self, id: i32) -> Result<bool> {
         let query = doc! { "product_id": id };
         self.collection
-            .delete_one(query, None)
+            .delete_one(query)
             .await
             .map(|result| {
                 if result.deleted_count == 0 {
