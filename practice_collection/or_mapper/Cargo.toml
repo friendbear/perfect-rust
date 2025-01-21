@@ -16,6 +16,6 @@ lombok = "0.4.0"
 proc-macro2 = "1.0.86"
 
 sea-orm = { version = "1.0", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros" ] }
-serde = { version = "1.0.209", features = ["derive"] }
+serde = { version = "1.0.217", features = ["derive"] }
 serde_json = { version = "1.0.128", default-features = false, features = ["alloc"] }
 tokio = { version = "1.40.0", features = ["full"] }
